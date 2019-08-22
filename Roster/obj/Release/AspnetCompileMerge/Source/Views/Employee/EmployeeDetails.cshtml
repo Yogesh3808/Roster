@@ -1,0 +1,154 @@
+﻿@model Roster.Models.EmployeeViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutpage.cshtml";
+}
+<div class="app-content" style="margin-top:70px;">
+
+    <div class="app-title">
+        <div>
+            <h1>Employee Management</h1>
+        </div>
+    </div>
+    @using (Html.BeginForm("EmployeeDetails", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.EmployeeID)
+  
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h4>@ViewBag.Result</h4>
+                    <div class="tile-body">
+                        <form class="form-horizontal">
+                            <div class="form-group row">
+                                <label class="control-label col-md-1">First Name<span class="star">*</span></label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", maxlength = 20, @placeholder = "First Name", @onkeypress = "return alphaOnly(event);" })
+                                    @Html.ValidationMessageFor(m => m.FirstName, "", new { @style = "color:red" })
+                                </div>
+                                <label class="control-label col-md-1">Last Name<span class="star">*</span></label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", maxlength = 20, @placeholder = "Last Name", @onkeypress = "return alphaOnly(event);" })
+                                    @Html.ValidationMessageFor(m => m.LastName, "", new { @style = "color:red" })
+                                </div>
+                                <label class="control-label col-md-1">Email Id<span class="star">*</span></label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", maxlength = 50, @placeholder = "Email Id" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                               
+                                <label class="control-label col-md-1">Phone no<span class="star">*</span></label>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", maxlength = 10, @placeholder = "Phone Number", @onkeypress = "return IsNumeric(event);" })
+                                    @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                    <div class="tile-footer">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-3">
+                                <a class="btn btn-primary" href="/Employee/AddNewEmployee" style="background-color:#0912f3;"><i class="fa fa-fw fa-lg fa-check-circle"></i>New</a>
+                                <button class="btn btn-primary" style="background-color:#0912f3;" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            @* Second Part List *@
+            <div class="col-md-12">
+                <div class="tile">
+                    <h3 class="tile-title">Employee List</h3>
+                    <div class="tile-body">
+
+                        <div class="form-group row table-responsive">
+                            <div class="col-md-12">
+                                <div id="new-search-area"></div>
+                            </div>
+
+                            <table class="table table-hover table-bordered " id="sampleTable">
+                                <thead>
+                                    <tr>
+                                        <th style="display: none;">EmpId</th>
+                                        <th>Name</th>
+                                        <th>Phone No</th>
+                                        <th>Email Id</th>
+
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ObjEmployeeList)
+                                    {
+                                        <tr>
+                                            <td style="display: none;">@item.employeeId</td>
+                                            <td>@item.employeename</td>
+                                            <td>@item.Phone</td>
+                                            <td>@item.email</td>
+                                            <td><a href="~/Employee/GetEmployeeById?empId=@item.employeeId" class="fa fa-edit"></a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    }
+</div>
+
+@section js{
+    <style>
+        .inputdisabled {
+            background-color: #e9ecef;
+            opacity: 1
+        }
+
+        #new-search-area {
+            width: 100%;
+            clear: both;
+            /*padding-top: 20px;
+            padding-bottom: 20px;*/
+        }
+
+            #new-search-area input {
+                display: block;
+                width: 700px;
+                padding: 0.375rem 0.75rem;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                color: #495057;
+                background-color: #FFF;
+                background-clip: padding-box;
+                border: 2px solid #ced4da;
+                border-radius: 4px;
+                -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+            }
+    </style>
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="~/Template/js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Template/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#sampleTable').DataTable(
+            {
+                //"bInfo": false,
+                //"bLengthChange": false,
+                //initComplete : function() {
+                //    $("#sampleTable_filter").detach().appendTo('#new-search-area');
+                //}
+            });
+    </script>
+    <script src="~/Scripts/CustomFunction.js"></script>
+}

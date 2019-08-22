@@ -1,0 +1,262 @@
+﻿@using System.Data
+@model List<Roster.RosterDLL.SP_GetAllRosterDetails_Result>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutpage.cshtml";
+}
+<style>
+    .tablescroll {
+        width: 100%;
+        overflow-x: auto;
+        /*white-space: nowrap;*/
+        word-wrap: break-word;
+        height: 500px;
+    }
+
+    .sms {
+        display: block;
+        /*width: 100%;*/
+        height: 34px;
+        padding: 2px 4px;
+        font-size: 14px;
+        line-height: 1.428571429;
+        color: #555;
+        vertical-align: middle;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+        -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+
+    .input-group-textDollar {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        padding: 0.27rem 0.25rem;
+        margin-bottom: 0;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #495057;
+        text-align: center;
+        white-space: nowrap;
+        background-color: #e9ecef;
+        border: 2px solid #ced4da;
+        border-radius: 4px;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+    }
+
+    .input-groupDollar {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-wrap: wrap;
+        /*flex-wrap: wrap;*/
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .inputdisabled {
+        background-color: #e9ecef;
+        opacity: 1
+    }
+</style>
+<div class="app-content" style="margin-top:70px;">
+    <div class="app-title" style="margin-bottom: 12px;">
+        <div>
+            <h1>Roster Details</h1>
+        </div>
+    </div>
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="tile">
+                            <div class="tile-body">
+
+                                <div>
+                                    @using (Html.BeginForm("Export", "Roster", FormMethod.Post))
+                                    {
+                                        <button class="btn btn-success" type="submit" id="btnExport"><i class="fa fa-fw fa-lg fa-check-circle"></i>Export To Excel</button>
+                                    }
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="tablescroll">
+                                    <table id="tblCommissionDts" class="table table-hover table-bordered" style="width: 160%;">
+                                        <thead style="background-color: #0912f3; color: white; line-height: 1.00;">
+                                            <tr>
+                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1)
+                                                {
+                                                    <th>Edit</th>
+                                                }
+                                                <th>Employee Name</th>
+                                                @if (Convert.ToInt32(Session["MemberRole"]) != 4)
+                                                {
+                                                    <th>Immigration Status</th>
+                                                    <th>Employment Basis</th>
+                                                }
+                                                <th>Phone No</th>
+                                                <th>Employee Email ID</th>
+                                                <th>Contract Start Date</th>
+                                                <th>Contract End Dates</th>
+                                                <th>Billable/NB</th>
+                                                <th>Client</th>
+                                                <th>Client Manager Name</th>
+                                                <th>Client Email ID</th>
+                                                <th>Skills</th>
+                                                <th>Continuity With Us</th>
+                                                <th>Remote</th>
+                                                <th>Expenses Applicable </th>
+                                                <th>Expense Frequency</th>
+                                                <th>Payroll Frequency</th>
+                                                <th>Business Name</th>
+                                                <th>Business Contact name</th>
+                                                <th>Vendor(Y/N)</th>
+                                                @if (Convert.ToInt32(Session["MemberRole"]) == 5)
+                                                {
+                                                    <th>Bill Rate</th>
+                                                }
+                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1)
+                                                {
+                                                    <th>Salary</th>
+                                                    <th>Hourly Rate</th>
+                                                    <th>Overhead Cost</th>
+                                                    <th>Overhead Percentage</th>
+                                                    <th>Loaded Cost</th>
+                                                    <th>Medical(Hourly Cost)</th>
+                                                    <th>Sick Leave(Hourly Cost)</th>
+                                                    <th>Other Expenses(Hourly Cost)</th>
+                                                    <th>Total Cost</th>
+                                                    <th>Bill Rate</th>
+                                                    <th>Gross Margin</th>
+                                                    <th>PO</th>
+                                                    <th>PO Effective Date</th>
+                                                    <th>Total SOW Value</th>
+                                                }
+                                            </tr>
+                                        </thead>
+                                        <tbody style="font-size: 11px;">
+                                            @foreach (var item in Model)
+                                            {
+                                            <tr>
+                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1)
+                                                {
+                                                    <td><a href="~/Roster/GetRosterbyId?roster_id=@item.roster_id" class="fa fa-edit"></a></td>
+                                                }
+
+                                                @*  <td>@Html.ActionLink("Edit", "GetRosterbyId", "Roster", new { roster_id = @item.roster_id }, new { @class = "fa fa-edit" })</td>*@
+                                                <td>@item.employee_name</td>
+                                                @if (Convert.ToInt32(Session["MemberRole"]) != 4)
+                                                {
+                                                    <td>@item.immigration_status</td>
+                                                    <td>@item.employment_basis</td>
+                                                }
+                                                <td>@item.phone_no</td>
+                                                <td>@item.empolyee_email_id</td>
+                                                <td>
+                                                    @if (@item.contract_start_date != null)
+                                                    {@($"{@item.contract_start_date:MM/dd/yyyy}")}
+                                                </td>
+                                                <td>
+                                                    @if (@item.contract_end_date != null)
+                                                    {@($"{@item.contract_end_date:MM/dd/yyyy}")}
+                                                </td>
+                                                <td>@item.billable</td>
+                                                <td>@item.client</td>
+                                                <td>@item.client_manager_name</td>
+                                                <td>@item.client_email_id</td>
+                                                <td>@item.skills</td>
+                                                <td>@item.continuity_with_us</td>
+                                                <td>@item.remote</td>
+                                                <td>@item.expenses_applicable</td>
+                                                <td>@item.expenses_weekly_or_monthly</td>
+                                                <td>@item.payroll</td>
+                                                <td>@item.business_name</td>
+                                                <td>@item.business_contact_name</td>
+                                                <td>@item.vendor</td>
+                                                @if (Convert.ToInt32(Session["MemberRole"]) == 5)
+                                                {
+                                                    <td>
+                                                        @if (@item.bill_rate != null)
+                                                        {@($"{@item.bill_rate:0.00}")}
+                                                    </td>
+                                                }
+                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1)
+                                                {
+                                                    <td>
+                                                        @if (@item.salary_or_hourly_rate != null)
+                                                        {@($"{@item.salary_or_hourly_rate:0.00}")}
+                                                    </td>
+                                                    <td>
+                                                        @if (@item.hourly_cost != null)
+                                                        {@($"{@item.hourly_cost:0.00}")}
+                                                    </td>
+                                                    <td>
+                                                        @if (@item.over_head != null)
+                                                        {@($"{@item.over_head:0.00}")}
+                                                    </td>
+                                                    <td>@item.overhead_per</td>
+                                                    <td>
+                                                        @if (@item.loaded_cost != null)
+                                                        {@($"{@item.loaded_cost:0.00}")}
+                                                    </td>
+                                                    <td>
+                                                        @if (@item.medical != null)
+                                                        {@($"{@item.medical:0.00}")}
+                                                    </td>
+                                                    <td>
+                                                        @if (@item.sick_leave_cost != null)
+                                                        {@($"{@item.sick_leave_cost:0.00}")}
+                                                    </td>
+                                                    <td>
+                                                        @if (@item.other_expenses != null)
+                                                        {@($"{@item.other_expenses:0.00}")}
+                                                    </td>
+                                                    <td>
+                                                        @if (@item.total_cost != null)
+                                                        {@($"{@item.total_cost:0.00}")}
+                                                    </td>
+
+                                                    <td>
+                                                        @if (@item.bill_rate != null)
+                                                        {@($"{@item.bill_rate:0.00}")}
+                                                    </td>
+                                                    <td>
+                                                        @if (@item.gross_margin != null)
+                                                        {@($"{@item.gross_margin:0.00}")}
+                                                    </td>
+
+                                                    <td>@item.po</td>
+                                                    <td>@item.po_effective_date</td>
+                                                    <td>
+                                                        @if (@item.total_sow_value != null)
+                                                        {@($"{@item.total_sow_value:0.00}")}
+                                                    </td>
+                                                }
+                                            </tr>
+                                            }
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

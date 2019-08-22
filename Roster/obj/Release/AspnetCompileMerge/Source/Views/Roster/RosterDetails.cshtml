@@ -1,0 +1,610 @@
+﻿@model Roster.Models.RosterViewModel
+@{
+    Layout = "~/Views/Shared/_Layoutpage.cshtml";
+}
+<script>
+    function validateFloatKeyPress(el, evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode;
+        var number = el.value.split('.');
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        //just one dot
+        if (number.length > 1 && charCode == 46) {
+            return false;
+        }
+        //get the carat position
+        var caratPos = getSelectionStart(el);
+        var dotPos = el.value.indexOf(".");
+        if (caratPos > dotPos && dotPos > -1 && (number[1].length > 1)) {
+            return false;
+        }
+        return true;
+    }
+    //thanks: http://javascript.nwbox.com/cursor_position/
+    function getSelectionStart(o) {
+        if (o.createTextRange) {
+            var r = document.selection.createRange().duplicate()
+            r.moveEnd('character', o.value.length)
+            if (r.text == '') return o.value.length
+            return o.value.lastIndexOf(r.text)
+        } else return o.selectionStart
+    }
+</script>
+
+
+<div class="app-content" style="margin-top:70px;">
+    <div class="app-title">
+        <h1>Roster Entry</h1>
+    </div>
+    @using (Html.BeginForm("RosterDetails", "Roster", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(m => m.roster_id)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                    <h4>@ViewBag.Result</h4>
+                    <div class="row">
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Employee Name</label>
+                                @Html.DropDownListFor(m => m.employeeid, new SelectList(Model.ObjEmployeeList, "employeeId", "employeename", Model.ObjEmployeeList), "Select Employee", new { @class = "form-control", @style = "height:35px;" })
+                                @Html.ValidationMessageFor(m => m.employeeid, "", new { @style = "color:red" })
+                                <a href="/Employee/Check_EmployeeDetails"><i></i>Add New Employee</a>
+                                @Html.HiddenFor(m => m.employeeid)
+                            </div>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Immigration Status</label>
+                                @Html.DropDownList("immigration_status", new List<SelectListItem>
+                                {
+                                    new SelectListItem {Text = "Citizen", Value = "Citizen"},
+                                    new SelectListItem {Text = "H1B", Value = "H1B"},
+                                    new SelectListItem {Text = "OPT-EAD", Value = "OPT-EAD"},
+                                    new SelectListItem {Text = "GC-EAD", Value = "GC-EAD"},
+                                    new SelectListItem {Text = "GC", Value = "GC"},
+                                    new SelectListItem {Text = "CPT", Value = "CPT"},
+                                    new SelectListItem {Text = "L2-EAD", Value = "L2-EAD"},
+                                    new SelectListItem {Text = "H4 EAD", Value = "H4 EAD"},
+                                    new SelectListItem {Text = "TN Visa – Canada", Value = "TN Visa – Canada"},
+
+
+                                }, "Select Immigration", new { @class = "form-control", @style = "width:230px; height:35px;" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Employment Basis</label>
+                                @Html.DropDownList("employment_basis", new List<SelectListItem>
+                                {
+
+                                  new SelectListItem {Text = "Annual W2", Value = "Annual W2"},
+                                   new SelectListItem {Text = "Hourly W2", Value = "Hourly W2"},
+                                   new SelectListItem {Text = "Individual 1099", Value = "Individual 1099"},
+                                   new SelectListItem {Text = "C2C", Value = "C2C"},
+                                   new SelectListItem {Text = "C2H", Value = "C2H"},
+                                   new SelectListItem {Text = "Direct Hire", Value = "Direct Hire"},
+
+                                }, "Select Employment", new { @class = "form-control", @style = "width:230px; height:35px;" })
+                                @Html.ValidationMessage("employment_basis", "", new { @style = "color:red" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Contract Start Date </label>
+                                @Html.TextBoxFor(m => m.contract_start_date, "{0:MM/dd/yyyy}", new { @class = "form-control", @style = "height:35px;", autocomplete = "off" })
+
+                            </div>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Contract End Date </label>
+                                @Html.TextBoxFor(m => m.contract_end_date, "{0:MM/dd/yyyy}", new { @class = "form-control", @style = "height:35px;", autocomplete = "off" })
+
+
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Billable\NB </label>
+                                @Html.DropDownList("billable", new List<SelectListItem>
+                                {
+                                    new SelectListItem {Text = "B", Value = "B"},
+                                    new SelectListItem {Text = "NB", Value = "NB"},
+                                    new SelectListItem {Text = "Ter", Value = "Ter"},
+
+                                }, "Select Billable", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                @Html.ValidationMessage("billable", "", new { @style = "color:red" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Client</label>
+                                @Html.TextBoxFor(m => m.client, new { @class = "form-control", maxlength = 50, @onkeypress = "return IsNumeric(event);" })
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Client Manager Name </label>
+                                @Html.TextBoxFor(m => m.client_manager_name, new { @class = "form-control", maxlength = 50 })
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Client Email ID </label>
+                                @Html.TextBoxFor(m => m.client_email_id, new { @class = "form-control", maxlength = 50 })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Skills</label>
+                                @Html.TextBoxFor(m => m.skills, new { @class = "form-control", maxlength = 400 })
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Continuity with Us</label>
+                                @Html.DropDownList("continuity_with_us", new List<SelectListItem>
+                                {
+                                    new SelectListItem {Text = "Yes", Value = "Yes"},
+                                    new SelectListItem {Text = "No", Value = "No"},
+
+
+                                }, "Select Continuity", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                @Html.ValidationMessage("continuity_with_us", "", new { @style = "color:red" })
+
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Remote </label>
+                                @Html.DropDownList("remote", new List<SelectListItem>
+                                {
+                                    new SelectListItem {Text = "Yes", Value = "Yes"},
+                                    new SelectListItem {Text = "No", Value = "No"},
+
+
+                                }, "Select Remote", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                @Html.ValidationMessage("Remote", "", new { @style = "color:red" })
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Expenses Applicable </label>
+                                @Html.DropDownList("expenses_applicable", new List<SelectListItem>
+                               {
+                                   new SelectListItem {Text = "Y", Value = "Y"},
+                                   new SelectListItem {Text = "N", Value = "N"},
+
+
+                               }, "Select Expenses Applicable", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                @Html.ValidationMessage("expenses_applicable", "", new { @style = "color:red" })
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Expense Frequency</label>
+                                @Html.DropDownList("exp_weekly_monthly", new List<SelectListItem>
+                                      {
+                                           new SelectListItem {Text = "Bi-weekly", Value = "Bi-weekly"},
+                                             new SelectListItem {Text = "Monthly", Value = "Monthly"},
+
+                                      }, "Select Expense Frequency", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                @Html.ValidationMessage("exp_weekly_monthly", "", new { @style = "color:red" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Payroll Frequency</label>
+                                @Html.DropDownList("Payroll", new List<SelectListItem>
+                                     {
+                                          new SelectListItem {Text = "Bi-weekly", Value = "Bi-weekly"},
+                                            new SelectListItem {Text = "Monthly", Value = "Monthly"},
+                                            new SelectListItem {Text = "Bi weekly Net 30", Value = "Bi weekly Net 30"},
+                                     }, "Select Payroll", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                @Html.ValidationMessage("Payroll", "", new { @style = "color:red" })
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        @*<div class="col-lg-3 offset-lg-1">
+                <div class="form-group">
+                    <label>Employee Phone No </label>
+                    @Html.TextBoxFor(m => m.phone_no, new { @class = "form-control", @onkeypress = "return IsNumeric(event);", maxlength = 14 })
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1">
+                <div class="form-group">
+                    <label>Employee Email ID </label>
+                    @Html.TextBoxFor(m => m.empolyee_email_id, new { @class = "form-control" })
+                </div>
+            </div>*@
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Business Name </label>
+                                @Html.TextBoxFor(m => m.business_name, new { @class = "form-control", maxlength = 50, @onkeypress = "return IsNumeric(event);" })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Business Contact name </label>
+                                @Html.TextBoxFor(m => m.business_contact_name, new { @class = "form-control", maxlength = 50 })
+                            </div>
+                        </div>
+                        <div class="col-lg-3 offset-lg-1">
+                            <div class="form-group">
+                                <label>Vendor(Y\N)</label>
+                                @Html.DropDownList("vendor", new List<SelectListItem>
+                                {
+                                    new SelectListItem {Text = "Y", Value = "True"},
+                                    new SelectListItem {Text = "N", Value = "False"},
+                                }, "Select Vendor", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                @Html.ValidationMessage("vendor", "", new { @style = "color:red" })
+                            </div>
+                        </div>
+                    </div>
+
+                    @if (Convert.ToInt32(Session["MemberRole"]) == 2 || Convert.ToInt32(Session["MemberRole"]) == 1)
+                    {
+                        <div class="row">
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Annual Salary</label>
+                                    @Html.TextBoxFor(m => m.salary_or_hourly_rate, new { @class = "form-control", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Hourly Rate</label>
+                                    @Html.TextBoxFor(m => m.hourly_cost, new { @class = "form-control", maxlength = 14, OnBlur = "return Calculate_Cost()", onkeypress = "return validateFloatKeyPress(this,event);" })
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Overhead Percentage</label>
+                                    @Html.TextBoxFor(m => m.overhead_per, new { @class = "form-control", maxlength = 150, OnBlur = "return Calculate_Cost()", onkeypress = "return validateFloatKeyPress(this,event);" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Overhead Cost</label>
+                                    @Html.TextBoxFor(m => m.over_head, new { @class = "form-control", maxlength = 150, OnBlur = "return Calculate_Cost()", onkeypress = "return validateFloatKeyPress(this,event);" })
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Loaded Cost </label>
+                                    @Html.TextBoxFor(m => m.loaded_cost, new { @class = "form-control",@readonly = "readonly", disable = "disabled", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Medical</label>
+                                    @Html.TextBoxFor(m => m.medical, new { @class = "form-control", OnBlur = "return Calculate_Cost()", @onkeypress = "return IsNumeric(event);", maxlength = 14 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Sick Leave Cost</label>
+                                    @Html.TextBoxFor(m => m.sick_leave_cost, new { @class = "form-control", OnBlur = "return Calculate_Cost()", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Other Expenses</label>
+                                    @Html.TextBoxFor(m => m.other_expenses, new { @class = "form-control", OnBlur = "return Calculate_Cost()", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Total Cost</label>
+                                    @Html.TextBoxFor(m => m.total_cost, new { @class = "form-control",@readonly = "readonly", disable = "disabled", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                </div>
+                            </div>
+
+
+                            @*<div class="col-lg-3 offset-lg-1">
+                    <div class="form-group">
+                        <label>Payroll Hours </label>
+                        @Html.TextBoxFor(m => m.payroll_hours, new { @class = "form-control" })
+
+                    </div>
+                </div>
+                <div class="col-lg-3 offset-lg-1">
+                    <div class="form-group">
+                        <label>QB hours </label>
+                        @Html.TextBoxFor(m => m.qb_hours, new { @class = "form-control", maxlength = 50 })
+                    </div>
+                </div>*@
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Bill Rate </label>
+                                    @Html.TextBoxFor(m => m.bill_rate, new { @class = "form-control", OnBlur = "return Calculate_Cost()", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Gross Margin</label>
+                                    @Html.TextBoxFor(m => m.gross_margin, new { @class = "form-control",@readonly = "readonly", maxlength = 14, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                </div>
+                            </div>
+
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Total SOW Value </label>
+                                    @Html.TextBoxFor(m => m.total_sow_value, new { @class = "form-control", maxlength = 50 })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>PO </label>
+                                    @Html.TextBoxFor(m => m.po, new { @class = "form-control", @onkeypress = "return IsNumeric(event);", maxlength = 14 })
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>PO Effective Date </label>
+                                    @Html.TextBoxFor(m => m.po_effective_date, "{0:MM/dd/yyyy}", new { @class = "form-control", @style = "height:35px;", autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="tile-footer">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-3">
+                                <a class="btn btn-primary" href="/Roster/RosterDetails"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add New</a>
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+@section js{
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
+            type="text/javascript"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+          rel="Stylesheet" type="text/css" />
+    <script type="text/javascript">
+
+        $(function () {
+            $("#contract_start_date").datepicker({
+                numberOfMonths: 1,
+                onSelect: function (selected) {
+                    var dt = new Date(selected);
+                    dt.setDate(dt.getDate() + 1);
+                    $("#contract_end_date").datepicker("option", "minDate", dt);
+                }
+            });
+
+            $("#contract_end_date").datepicker({
+                numberOfMonths: 1,
+                onSelect: function (selected) {
+                    var dt = new Date(selected);
+                    dt.setDate(dt.getDate() - 1);
+                    $("#contract_start_date").datepicker("option", "maxDate", dt);
+                }
+            });
+
+            $("#po_effective_date").datepicker({
+                numberOfMonths: 1,
+                onSelect: function (selected) {
+                    var dt = new Date(selected);
+                    dt.setDate(dt.getDate() + 1);
+                    $("#po_effective_date").datepicker("option", "minDate", dt);
+                }
+            });
+        });
+        $(document).ready(function () {
+            $("#employment_basis").change(function () {
+                var selectedValue = $(this).val();
+                if (selectedValue == 'Annual W2' || selectedValue == 'Hourly W2') {
+                   
+                    $('#overhead_per').val(15);
+                    $('#over_head').val(0);
+                    Calculate_Cost();
+                }
+                else {
+                  
+                    $('#overhead_per').val(0);
+                    $('#over_head').val("10.00");
+                    Calculate_Cost();
+                }
+            });
+            $("#expenses_applicable").change(function () {
+                var selectedValue = $(this).val();
+                var remote = $('#remote').val();
+                if (selectedValue == 'Y') {
+                    if (remote == 'Yes') {
+                        var ConfirmMsg = confirm("Expenses are not applicable in Remote Yes, do you want to select expenses applicable " + selectedValue + " ?");
+                        if (ConfirmMsg) {
+                            $('#expenses_applicable').val('Y');
+                        }
+                        else { $('#expenses_applicable').val('N'); }
+                    }
+                }
+            });
+            $("#remote").change(function () {
+                var selectedValue = $(this).val();
+                var remote = $('#expenses_applicable').val();
+                if (selectedValue == 'Yes') {
+                    if (remote == 'Y') {
+                        var ConfirmMsg = confirm("Remote are not applicable in Expenses Y, Do you want to select Remote " + selectedValue + " ?");
+                        if (ConfirmMsg) {
+                            $('#remote').val('Yes');
+                        }
+                        else { $('#remote').val('No'); }
+                    }
+                }
+            });
+        });
+        $('#employeeid').change(function () {
+            var EmployeeId = $(this);
+
+            $.ajax({
+                url: '/Roster/EmployeeRosterDetails',
+                type: 'POST',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify({
+                    EmployeeId: EmployeeId.val(),
+                }),
+                success: function (result) {
+
+                    if (result != "") {
+                        if (confirm('Do you want to copy Previous Roster Details of Employee?')) {
+                            for (var x = 0; x < result.length; x++) {
+                                ClearRosterDetails();
+                                $('#immigration_status').val(result[x].immigration_status);
+                                $('#employment_basis').val(result[x].employment_basis);
+                                $('#billable').val(result[x].billable);
+                                $('#client').val(result[x].client);
+                                $('#client_manager_name').val(result[x].client_manager_name);
+                                $('#client_email_id').val(result[x].client_email_id);
+                                $('#skills').val(result[x].skills);
+                                $('#continuity_with_us').val(result[x].continuity_with_us);
+                                $('#Remote').val(result[x].Remote);
+                                $('#expenses_applicable').val(result[x].expenses_applicable);
+                                $('#exp_weekly_monthly').val(result[x].exp_weekly_monthly);
+                                $('#Payroll').val(result[x].Payroll);
+                                $('#continuity_with_us').val(result[x].continuity_with_us);
+                                $('#Remote').val(result[x].Remote);
+                                $('#business_name').val(result[x].business_name);
+                                $('#business_contact_name').val(result[x].business_contact_name);
+                                $('#salary_or_hourly_rate').val(result[x].salary_or_hourly_rate);
+                                $('#hourly_cost').val(result[x].hourly_cost);
+                                $('#over_head').val(result[x].over_head);
+                                $('#overhead_per').val(result[x].overhead_per);
+                                $('#loaded_cost').val(result[x].loaded_cost);
+                                $('#medical').val(result[x].medical);
+                                $('#other_expenses').val(result[x].other_expenses);
+                                $('#total_cost').val(result[x].total_cost);
+                                $('#bill_rate').val(result[x].bill_rate);
+                                $('#gross_margin').val(result[x].gross_margin);
+                                $('#po').val(result[x].po);
+                                $('#total_sow_value').val(result[x].total_sow_value);
+                                $('#sick_leave_cost').val(result[x].sick_leave_cost);
+                                $('#vendor').val(result[x].vendor);
+                                $('#po_effective_date').val(result[x].po_effective_date);
+                            }
+                        } else {
+                            ClearRosterDetails();
+
+                        }
+                    }
+                    else {
+                        ClearRosterDetails();
+                    }
+                },
+                error: function () {
+
+                },
+            })
+
+        });
+
+        function ClearRosterDetails() {
+            $('#roster_id').val("");
+            $('#immigration_status').val("");
+            $('#employment_basis').val("");
+            $('#billable').val("NB");
+            $('#client').val("");
+            $('#client_manager_name').val("");
+            $('#client_email_id').val("");
+            $('#skills').val("");
+            $('#continuity_with_us').val("");
+            $('#Remote').val("");
+            $('#expenses_applicable').val("N");
+            $('#exp_weekly_monthly').val("");
+            $('#Payroll').val("");
+            $('#continuity_with_us').val("");
+            $('#Remote').val("");
+            $('#business_name').val("");
+            $('#business_contact_name').val("");
+            $('#salary_or_hourly_rate').val("0");
+            $('#hourly_cost').val("0");
+            $('#over_head').val("0");
+            $('#overhead_per').val("0");
+            $('#loaded_cost').val("0");
+            $('#medical').val("0");
+            $('#other_expenses').val("0");
+            $('#sick_leave_cost').val("0");
+            $('#vendor').val(false);
+            $('#po_effective_date').val("");
+            $('#contract_start_date').val("");
+            $('#contract_end_date').val("");
+            $('#total_cost').val("0");
+            $('#bill_rate').val("0");
+            $('#gross_margin').val("0");
+            $('#po').val("");
+            $('#total_sow_value').val("0");
+        }
+        function Calculate_Cost() {
+            var over_head = parseFloat($("#over_head").val());
+            var overhead_per = parseFloat($("#overhead_per").val());
+            var hourly_cost = parseFloat($("#hourly_cost").val());
+            var overheadPerval = parseFloat(hourly_cost) * (parseFloat(overhead_per) / 100);
+            var loaded = parseFloat(hourly_cost) + parseFloat(over_head) + parseFloat(overheadPerval);
+            var mecal = parseFloat($("#medical").val());
+            var sickleave = parseFloat($("#sick_leave_cost").val());
+            var otherexp = parseFloat($("#other_expenses").val());
+            var totalcost = parseFloat(loaded) + parseFloat(mecal) + parseFloat(otherexp) + parseFloat(sickleave);
+            var billrate = parseFloat($("#bill_rate").val());
+            var totalcostval = parseFloat(totalcost);
+            var gross = parseFloat(billrate) - parseFloat(totalcostval);
+            $("#loaded_cost").val(loaded);
+            $("#total_cost").val(totalcost);
+            $("#gross_margin").val(gross);
+        }
+
+
+
+    
+    </script>
+
+    
+}

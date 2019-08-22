@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="RosterModelStoreContainer" CdmEntityContainer="RosterEntities">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="RosterModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="RosterModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="RosterModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="RosterModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserRoles">
+      <EntityTypeMapping TypeName="RosterModel.AspNetUserRole">
+        <MappingFragment StoreEntitySet="AspNetUserRoles">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_EmployeeList" FunctionName="RosterModel.Store.SP_EmployeeList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RosterModel.SP_EmployeeList_Result">
+          <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="contractType" ColumnName="contractType" />
+          <ScalarProperty Name="employeename" ColumnName="employeename" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="modifyDate" ColumnName="modifyDate" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="RosterModel.employee">
+        <MappingFragment StoreEntitySet="employee">
+          <ScalarProperty Name="modifyDate" ColumnName="modifyDate" />
+          <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+          <ScalarProperty Name="active" ColumnName="active" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="employeename" ColumnName="employeename" />
+          <ScalarProperty Name="contractType" ColumnName="contractType" />
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="RosterModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="User_Role" ColumnName="User_Role" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="user_roles">
+      <EntityTypeMapping TypeName="RosterModel.user_roles">
+        <MappingFragment StoreEntitySet="user_roles">
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="user_role_description" ColumnName="user_role_description" />
+          <ScalarProperty Name="user_role" ColumnName="user_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_LoginUserDetails" FunctionName="RosterModel.Store.SP_LoginUserDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RosterModel.SP_LoginUserDetails_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="User_Role" ColumnName="User_Role" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="rosters">
+      <EntityTypeMapping TypeName="RosterModel.roster">
+        <MappingFragment StoreEntitySet="roster">
+          <ScalarProperty Name="po_effective_date" ColumnName="po_effective_date" />
+          <ScalarProperty Name="sick_leave_cost" ColumnName="sick_leave_cost" />
+          <ScalarProperty Name="vendor" ColumnName="vendor" />
+          <ScalarProperty Name="overhead_per" ColumnName="overhead_per" />
+          <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+          <ScalarProperty Name="exp_weekly_monthly" ColumnName="exp_weekly_monthly" />
+          <ScalarProperty Name="last_updated_datetime" ColumnName="last_updated_datetime" />
+          <ScalarProperty Name="last_updated_by_user_id" ColumnName="last_updated_by_user_id" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="created_by_user_id" ColumnName="created_by_user_id" />
+          <ScalarProperty Name="qb_hours" ColumnName="qb_hours" />
+          <ScalarProperty Name="payroll_hours" ColumnName="payroll_hours" />
+          <ScalarProperty Name="po" ColumnName="po" />
+          <ScalarProperty Name="total_sow_value" ColumnName="total_sow_value" />
+          <ScalarProperty Name="gross_margin" ColumnName="gross_margin" />
+          <ScalarProperty Name="bill_rate" ColumnName="bill_rate" />
+          <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
+          <ScalarProperty Name="medical" ColumnName="medical" />
+          <ScalarProperty Name="loaded_cost" ColumnName="loaded_cost" />
+          <ScalarProperty Name="over_head" ColumnName="over_head" />
+          <ScalarProperty Name="hourly_cost" ColumnName="hourly_cost" />
+          <ScalarProperty Name="salary_or_hourly_rate" ColumnName="salary_or_hourly_rate" />
+          <ScalarProperty Name="business_contact_name" ColumnName="business_contact_name" />
+          <ScalarProperty Name="business_name" ColumnName="business_name" />
+          <ScalarProperty Name="remote" ColumnName="remote" />
+          <ScalarProperty Name="payroll" ColumnName="payroll" />
+          <ScalarProperty Name="expenses_applicable" ColumnName="expenses_applicable" />
+          <ScalarProperty Name="client_email_id" ColumnName="client_email_id" />
+          <ScalarProperty Name="empolyee_email_id" ColumnName="empolyee_email_id" />
+          <ScalarProperty Name="phone_no" ColumnName="phone_no" />
+          <ScalarProperty Name="client_manager_name" ColumnName="client_manager_name" />
+          <ScalarProperty Name="continuity_with_us" ColumnName="continuity_with_us" />
+          <ScalarProperty Name="skills" ColumnName="skills" />
+          <ScalarProperty Name="client" ColumnName="client" />
+          <ScalarProperty Name="billable" ColumnName="billable" />
+          <ScalarProperty Name="contract_end_date" ColumnName="contract_end_date" />
+          <ScalarProperty Name="contract_start_date" ColumnName="contract_start_date" />
+          <ScalarProperty Name="employment_basis" ColumnName="employment_basis" />
+          <ScalarProperty Name="immigration_status" ColumnName="immigration_status" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="roster_id" ColumnName="roster_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_RoleList" FunctionName="RosterModel.Store.SP_RoleList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RosterModel.SP_RoleList_Result">
+          <ScalarProperty Name="user_role" ColumnName="user_role" />
+          <ScalarProperty Name="user_role_description" ColumnName="user_role_description" />
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="excel_export_header">
+      <EntityTypeMapping TypeName="RosterModel.excel_export_header">
+        <MappingFragment StoreEntitySet="excel_export_header">
+          <ScalarProperty Name="is_invoicevisible" ColumnName="is_invoicevisible" />
+          <ScalarProperty Name="is_salesvisible" ColumnName="is_salesvisible" />
+          <ScalarProperty Name="is_uservisible" ColumnName="is_uservisible" />
+          <ScalarProperty Name="is_active" ColumnName="is_active" />
+          <ScalarProperty Name="excel_export_header_title" ColumnName="excel_export_header_title" />
+          <ScalarProperty Name="excel_export_srno" ColumnName="excel_export_srno" />
+          <ScalarProperty Name="excel_export_type_id" ColumnName="excel_export_type_id" />
+          <ScalarProperty Name="excel_export_id" ColumnName="excel_export_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="SP_GetLoginDtsByRegisterUser" FunctionName="RosterModel.Store.SP_GetLoginDtsByRegisterUser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RosterModel.SP_GetLoginDtsByRegisterUser_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="user_role_description" ColumnName="user_role_description" />
+          <ScalarProperty Name="user_role" ColumnName="user_role" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_UserList" FunctionName="RosterModel.Store.SP_UserList">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RosterModel.SP_UserList_Result">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="user_role_description" ColumnName="user_role_description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_GetAllRosterDetails" FunctionName="RosterModel.Store.SP_GetAllRosterDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RosterModel.SP_GetAllRosterDetails_Result">
+          <ScalarProperty Name="roster_id" ColumnName="roster_id" />
+          <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+          <ScalarProperty Name="immigration_status" ColumnName="immigration_status" />
+          <ScalarProperty Name="employment_basis" ColumnName="employment_basis" />
+          <ScalarProperty Name="contract_start_date" ColumnName="contract_start_date" />
+          <ScalarProperty Name="contract_end_date" ColumnName="contract_end_date" />
+          <ScalarProperty Name="billable" ColumnName="billable" />
+          <ScalarProperty Name="client" ColumnName="client" />
+          <ScalarProperty Name="skills" ColumnName="skills" />
+          <ScalarProperty Name="continuity_with_us" ColumnName="continuity_with_us" />
+          <ScalarProperty Name="client_manager_name" ColumnName="client_manager_name" />
+          <ScalarProperty Name="phone_no" ColumnName="phone_no" />
+          <ScalarProperty Name="empolyee_email_id" ColumnName="empolyee_email_id" />
+          <ScalarProperty Name="client_email_id" ColumnName="client_email_id" />
+          <ScalarProperty Name="expenses_applicable" ColumnName="expenses_applicable" />
+          <ScalarProperty Name="payroll" ColumnName="payroll" />
+          <ScalarProperty Name="remote" ColumnName="remote" />
+          <ScalarProperty Name="business_name" ColumnName="business_name" />
+          <ScalarProperty Name="business_contact_name" ColumnName="business_contact_name" />
+          <ScalarProperty Name="salary_or_hourly_rate" ColumnName="salary_or_hourly_rate" />
+          <ScalarProperty Name="hourly_cost" ColumnName="hourly_cost" />
+          <ScalarProperty Name="over_head" ColumnName="over_head" />
+          <ScalarProperty Name="loaded_cost" ColumnName="loaded_cost" />
+          <ScalarProperty Name="medical" ColumnName="medical" />
+          <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
+          <ScalarProperty Name="bill_rate" ColumnName="bill_rate" />
+          <ScalarProperty Name="gross_margin" ColumnName="gross_margin" />
+          <ScalarProperty Name="total_sow_value" ColumnName="total_sow_value" />
+          <ScalarProperty Name="po" ColumnName="po" />
+          <ScalarProperty Name="payroll_hours" ColumnName="payroll_hours" />
+          <ScalarProperty Name="qb_hours" ColumnName="qb_hours" />
+          <ScalarProperty Name="expenses_weekly_or_monthly" ColumnName="expenses_weekly_or_monthly" />
+          <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+          <ScalarProperty Name="overhead_per" ColumnName="overhead_per" />
+          <ScalarProperty Name="vendor" ColumnName="vendor" />
+          <ScalarProperty Name="sick_leave_cost" ColumnName="sick_leave_cost" />
+          <ScalarProperty Name="po_effective_date" ColumnName="po_effective_date" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="SP_GetEmployeeRosterDetails" FunctionName="RosterModel.Store.SP_GetEmployeeRosterDetails">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="RosterModel.SP_GetEmployeeRosterDetails_Result">
+          <ScalarProperty Name="roster_id" ColumnName="roster_id" />
+          <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+          <ScalarProperty Name="immigration_status" ColumnName="immigration_status" />
+          <ScalarProperty Name="employment_basis" ColumnName="employment_basis" />
+          <ScalarProperty Name="contract_start_date" ColumnName="contract_start_date" />
+          <ScalarProperty Name="contract_end_date" ColumnName="contract_end_date" />
+          <ScalarProperty Name="billable" ColumnName="billable" />
+          <ScalarProperty Name="client" ColumnName="client" />
+          <ScalarProperty Name="skills" ColumnName="skills" />
+          <ScalarProperty Name="continuity_with_us" ColumnName="continuity_with_us" />
+          <ScalarProperty Name="client_manager_name" ColumnName="client_manager_name" />
+          <ScalarProperty Name="phone_no" ColumnName="phone_no" />
+          <ScalarProperty Name="empolyee_email_id" ColumnName="empolyee_email_id" />
+          <ScalarProperty Name="client_email_id" ColumnName="client_email_id" />
+          <ScalarProperty Name="expenses_applicable" ColumnName="expenses_applicable" />
+          <ScalarProperty Name="payroll" ColumnName="payroll" />
+          <ScalarProperty Name="remote" ColumnName="remote" />
+          <ScalarProperty Name="business_name" ColumnName="business_name" />
+          <ScalarProperty Name="business_contact_name" ColumnName="business_contact_name" />
+          <ScalarProperty Name="salary_or_hourly_rate" ColumnName="salary_or_hourly_rate" />
+          <ScalarProperty Name="hourly_cost" ColumnName="hourly_cost" />
+          <ScalarProperty Name="over_head" ColumnName="over_head" />
+          <ScalarProperty Name="loaded_cost" ColumnName="loaded_cost" />
+          <ScalarProperty Name="medical" ColumnName="medical" />
+          <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
+          <ScalarProperty Name="bill_rate" ColumnName="bill_rate" />
+          <ScalarProperty Name="gross_margin" ColumnName="gross_margin" />
+          <ScalarProperty Name="total_sow_value" ColumnName="total_sow_value" />
+          <ScalarProperty Name="po" ColumnName="po" />
+          <ScalarProperty Name="payroll_hours" ColumnName="payroll_hours" />
+          <ScalarProperty Name="qb_hours" ColumnName="qb_hours" />
+          <ScalarProperty Name="created_by_user_id" ColumnName="created_by_user_id" />
+          <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+          <ScalarProperty Name="last_updated_by_user_id" ColumnName="last_updated_by_user_id" />
+          <ScalarProperty Name="last_updated_datetime" ColumnName="last_updated_datetime" />
+          <ScalarProperty Name="exp_weekly_monthly" ColumnName="exp_weekly_monthly" />
+          <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+          <ScalarProperty Name="overhead_per" ColumnName="overhead_per" />
+          <ScalarProperty Name="vendor" ColumnName="vendor" />
+          <ScalarProperty Name="sick_leave_cost" ColumnName="sick_leave_cost" />
+          <ScalarProperty Name="po_effective_date" ColumnName="po_effective_date" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

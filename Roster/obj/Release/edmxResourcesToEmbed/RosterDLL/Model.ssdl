@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="RosterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="__MigrationHistory">
+    <Key>
+      <PropertyRef Name="MigrationId" />
+      <PropertyRef Name="ContextKey" />
+    </Key>
+    <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+    <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+    <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="FirstName" Type="varchar" MaxLength="20" />
+    <Property Name="LastName" Type="varchar" MaxLength="20" />
+    <Property Name="User_Role" Type="int" />
+  </EntityType>
+  <EntityType Name="employee">
+    <Key>
+      <PropertyRef Name="employeeId" />
+    </Key>
+    <Property Name="employeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="firstName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="lastName" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="contractType" Type="varchar" MaxLength="50" />
+    <Property Name="employeename" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="Phone" Type="varchar" MaxLength="17" Nullable="false" />
+    <Property Name="email" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="active" Type="bit" Nullable="false" />
+    <Property Name="createdDate" Type="datetime" />
+    <Property Name="modifyDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="excel_export_header">
+    <Key>
+      <PropertyRef Name="excel_export_id" />
+    </Key>
+    <Property Name="excel_export_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="excel_export_type_id" Type="int" Nullable="false" />
+    <Property Name="excel_export_srno" Type="int" />
+    <Property Name="excel_export_header_title" Type="varchar" MaxLength="250" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+    <Property Name="is_uservisible" Type="bit" />
+    <Property Name="is_salesvisible" Type="bit" />
+    <Property Name="is_invoicevisible" Type="bit" />
+  </EntityType>
+  <EntityType Name="roster">
+    <Key>
+      <PropertyRef Name="roster_id" />
+    </Key>
+    <Property Name="roster_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employee_id" Type="int" Nullable="false" />
+    <Property Name="immigration_status" Type="varchar" MaxLength="20" />
+    <Property Name="employment_basis" Type="varchar" MaxLength="20" />
+    <Property Name="contract_start_date" Type="datetime" />
+    <Property Name="contract_end_date" Type="datetime" />
+    <Property Name="billable" Type="varchar" MaxLength="20" />
+    <Property Name="client" Type="varchar" MaxLength="50" />
+    <Property Name="skills" Type="varchar" MaxLength="400" />
+    <Property Name="continuity_with_us" Type="varchar" MaxLength="10" />
+    <Property Name="client_manager_name" Type="varchar" MaxLength="50" />
+    <Property Name="phone_no" Type="varchar" MaxLength="20" />
+    <Property Name="empolyee_email_id" Type="varchar" MaxLength="50" />
+    <Property Name="client_email_id" Type="varchar" MaxLength="50" />
+    <Property Name="expenses_applicable" Type="varchar" MaxLength="20" />
+    <Property Name="payroll" Type="varchar" MaxLength="20" />
+    <Property Name="remote" Type="varchar" MaxLength="20" />
+    <Property Name="business_name" Type="varchar" MaxLength="100" />
+    <Property Name="business_contact_name" Type="varchar" MaxLength="20" />
+    <Property Name="salary_or_hourly_rate" Type="float" />
+    <Property Name="hourly_cost" Type="float" />
+    <Property Name="over_head" Type="float" />
+    <Property Name="loaded_cost" Type="float" />
+    <Property Name="medical" Type="float" />
+    <Property Name="other_expenses" Type="float" />
+    <Property Name="bill_rate" Type="float" />
+    <Property Name="gross_margin" Type="float" />
+    <Property Name="total_sow_value" Type="float" />
+    <Property Name="po" Type="varchar" MaxLength="20" />
+    <Property Name="payroll_hours" Type="float" />
+    <Property Name="qb_hours" Type="float" />
+    <Property Name="created_by_user_id" Type="int" />
+    <Property Name="created_datetime" Type="datetime" />
+    <Property Name="last_updated_by_user_id" Type="int" />
+    <Property Name="last_updated_datetime" Type="datetime" />
+    <Property Name="exp_weekly_monthly" Type="varchar" MaxLength="50" />
+    <Property Name="total_cost" Type="float" />
+    <Property Name="overhead_per" Type="float" />
+    <Property Name="vendor" Type="bit" />
+    <Property Name="sick_leave_cost" Type="float" />
+    <Property Name="po_effective_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="user_roles">
+    <Key>
+      <PropertyRef Name="user_role" />
+    </Key>
+    <Property Name="user_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="user_role_description" Type="varchar" MaxLength="20" />
+    <Property Name="is_active" Type="bit" />
+  </EntityType>
+  <Function Name="SP_EmployeeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_GetAllRosterDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_GetEmployeeRosterDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="employee_Id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="SP_GetLoginDtsByRegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_LoginUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="LoginEmailID" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="SP_RoleList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_UserList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="RosterModelStoreContainer">
+    <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="excel_export_header" EntityType="Self.excel_export_header" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="roster" EntityType="Self.roster" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="user_roles" EntityType="Self.user_roles" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

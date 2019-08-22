@@ -1,0 +1,833 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="RosterModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" />
+          <Property Name="User_Role" Type="int" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employeeId" />
+          </Key>
+          <Property Name="employeeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="lastName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="contractType" Type="varchar" MaxLength="50" />
+          <Property Name="employeename" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="Phone" Type="varchar" MaxLength="17" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="active" Type="bit" Nullable="false" />
+          <Property Name="createdDate" Type="datetime" />
+          <Property Name="modifyDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="excel_export_header">
+          <Key>
+            <PropertyRef Name="excel_export_id" />
+          </Key>
+          <Property Name="excel_export_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="excel_export_type_id" Type="int" Nullable="false" />
+          <Property Name="excel_export_srno" Type="int" />
+          <Property Name="excel_export_header_title" Type="varchar" MaxLength="250" />
+          <Property Name="is_active" Type="bit" Nullable="false" />
+          <Property Name="is_uservisible" Type="bit" />
+          <Property Name="is_salesvisible" Type="bit" />
+          <Property Name="is_invoicevisible" Type="bit" />
+        </EntityType>
+        <EntityType Name="roster">
+          <Key>
+            <PropertyRef Name="roster_id" />
+          </Key>
+          <Property Name="roster_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employee_id" Type="int" Nullable="false" />
+          <Property Name="immigration_status" Type="varchar" MaxLength="20" />
+          <Property Name="employment_basis" Type="varchar" MaxLength="20" />
+          <Property Name="contract_start_date" Type="datetime" />
+          <Property Name="contract_end_date" Type="datetime" />
+          <Property Name="billable" Type="varchar" MaxLength="20" />
+          <Property Name="client" Type="varchar" MaxLength="50" />
+          <Property Name="skills" Type="varchar" MaxLength="400" />
+          <Property Name="continuity_with_us" Type="varchar" MaxLength="10" />
+          <Property Name="client_manager_name" Type="varchar" MaxLength="50" />
+          <Property Name="phone_no" Type="varchar" MaxLength="20" />
+          <Property Name="empolyee_email_id" Type="varchar" MaxLength="50" />
+          <Property Name="client_email_id" Type="varchar" MaxLength="50" />
+          <Property Name="expenses_applicable" Type="varchar" MaxLength="20" />
+          <Property Name="payroll" Type="varchar" MaxLength="20" />
+          <Property Name="remote" Type="varchar" MaxLength="20" />
+          <Property Name="business_name" Type="varchar" MaxLength="100" />
+          <Property Name="business_contact_name" Type="varchar" MaxLength="20" />
+          <Property Name="salary_or_hourly_rate" Type="float" />
+          <Property Name="hourly_cost" Type="float" />
+          <Property Name="over_head" Type="float" />
+          <Property Name="loaded_cost" Type="float" />
+          <Property Name="medical" Type="float" />
+          <Property Name="other_expenses" Type="float" />
+          <Property Name="bill_rate" Type="float" />
+          <Property Name="gross_margin" Type="float" />
+          <Property Name="total_sow_value" Type="float" />
+          <Property Name="po" Type="varchar" MaxLength="20" />
+          <Property Name="payroll_hours" Type="float" />
+          <Property Name="qb_hours" Type="float" />
+          <Property Name="created_by_user_id" Type="int" />
+          <Property Name="created_datetime" Type="datetime" />
+          <Property Name="last_updated_by_user_id" Type="int" />
+          <Property Name="last_updated_datetime" Type="datetime" />
+          <Property Name="exp_weekly_monthly" Type="varchar" MaxLength="50" />
+          <Property Name="total_cost" Type="float" />
+          <Property Name="overhead_per" Type="float" />
+          <Property Name="vendor" Type="bit" />
+          <Property Name="sick_leave_cost" Type="float" />
+          <Property Name="po_effective_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="user_roles">
+          <Key>
+            <PropertyRef Name="user_role" />
+          </Key>
+          <Property Name="user_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_role_description" Type="varchar" MaxLength="20" />
+          <Property Name="is_active" Type="bit" />
+        </EntityType>
+        <Function Name="SP_EmployeeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GetAllRosterDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_GetEmployeeRosterDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="employee_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SP_GetLoginDtsByRegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_LoginUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="LoginEmailID" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_RoleList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_UserList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="RosterModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="excel_export_header" EntityType="Self.excel_export_header" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roster" EntityType="Self.roster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="user_roles" EntityType="Self.user_roles" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="RosterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRole">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="RosterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogin" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRole" />
+          <FunctionImport Name="SP_EmployeeList" ReturnType="Collection(RosterModel.SP_EmployeeList_Result)" />
+          <EntitySet Name="employees" EntityType="RosterModel.employee" />
+          <EntitySet Name="AspNetUsers" EntityType="RosterModel.AspNetUser" />
+          <EntitySet Name="user_roles" EntityType="RosterModel.user_roles" />
+          <FunctionImport Name="SP_LoginUserDetails" ReturnType="Collection(RosterModel.SP_LoginUserDetails_Result)">
+          <Parameter Name="LoginEmailID" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="rosters" EntityType="RosterModel.roster" />
+          <FunctionImport Name="SP_RoleList" ReturnType="Collection(RosterModel.SP_RoleList_Result)" />
+          <EntitySet Name="excel_export_header" EntityType="RosterModel.excel_export_header" />
+          <FunctionImport Name="SP_GetLoginDtsByRegisterUser" ReturnType="Collection(RosterModel.SP_GetLoginDtsByRegisterUser_Result)">
+          <Parameter Name="ID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_UserList" ReturnType="Collection(RosterModel.SP_UserList_Result)" />
+          <FunctionImport Name="SP_GetAllRosterDetails" ReturnType="Collection(RosterModel.SP_GetAllRosterDetails_Result)" />
+          <FunctionImport Name="SP_GetEmployeeRosterDetails" ReturnType="Collection(RosterModel.SP_GetEmployeeRosterDetails_Result)">
+            <Parameter Name="employee_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="SP_EmployeeList_Result">
+          <Property Type="Int32" Name="employeeId" Nullable="false" />
+          <Property Type="String" Name="firstName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="lastName" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="contractType" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="employeename" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Phone" Nullable="false" MaxLength="17" />
+          <Property Type="String" Name="email" Nullable="false" MaxLength="200" />
+          <Property Type="Boolean" Name="active" Nullable="false" />
+          <Property Type="DateTime" Name="createdDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="modifyDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="employeeId" />
+          </Key>
+          <Property Name="employeeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="lastName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="contractType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="employeename" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" Nullable="false" MaxLength="17" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Boolean" Nullable="false" />
+          <Property Name="createdDate" Type="DateTime" Precision="3" />
+          <Property Name="modifyDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="User_Role" Type="Int32" />
+        </EntityType>
+        <EntityType Name="user_roles">
+          <Key>
+            <PropertyRef Name="user_role" />
+          </Key>
+          <Property Name="user_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_role_description" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="SP_LoginUserDetails_Result">
+          <Property Type="String" Name="Id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
+          <Property Type="Boolean" Name="EmailConfirmed" Nullable="false" />
+          <Property Type="String" Name="PasswordHash" Nullable="true" />
+          <Property Type="String" Name="SecurityStamp" Nullable="true" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" />
+          <Property Type="Boolean" Name="PhoneNumberConfirmed" Nullable="false" />
+          <Property Type="Boolean" Name="TwoFactorEnabled" Nullable="false" />
+          <Property Type="DateTime" Name="LockoutEndDateUtc" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="LockoutEnabled" Nullable="false" />
+          <Property Type="Int32" Name="AccessFailedCount" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="User_Role" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="roster">
+          <Key>
+            <PropertyRef Name="roster_id" />
+          </Key>
+          <Property Name="roster_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employee_id" Type="Int32" Nullable="false" />
+          <Property Name="immigration_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="employment_basis" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="contract_start_date" Type="DateTime" Precision="3" />
+          <Property Name="contract_end_date" Type="DateTime" Precision="3" />
+          <Property Name="billable" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="client" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="skills" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="continuity_with_us" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="client_manager_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="phone_no" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="empolyee_email_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="client_email_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="expenses_applicable" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="payroll" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="remote" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="business_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="business_contact_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="salary_or_hourly_rate" Type="Double" />
+          <Property Name="hourly_cost" Type="Double" />
+          <Property Name="over_head" Type="Double" />
+          <Property Name="loaded_cost" Type="Double" />
+          <Property Name="medical" Type="Double" />
+          <Property Name="other_expenses" Type="Double" />
+          <Property Name="bill_rate" Type="Double" />
+          <Property Name="gross_margin" Type="Double" />
+          <Property Name="total_sow_value" Type="Double" />
+          <Property Name="po" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="payroll_hours" Type="Double" />
+          <Property Name="qb_hours" Type="Double" />
+          <Property Name="created_by_user_id" Type="Int32" />
+          <Property Name="created_datetime" Type="DateTime" Precision="3" />
+          <Property Name="last_updated_by_user_id" Type="Int32" />
+          <Property Name="last_updated_datetime" Type="DateTime" Precision="3" />
+          <Property Name="exp_weekly_monthly" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="total_cost" Type="Double" />
+          <Property Name="overhead_per" Type="Double" />
+          <Property Name="vendor" Type="Boolean" />
+          <Property Name="sick_leave_cost" Type="Double" />
+          <Property Name="po_effective_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <ComplexType Name="SP_RoleList_Result">
+          <Property Type="Int32" Name="user_role" Nullable="false" />
+          <Property Type="String" Name="user_role_description" Nullable="true" MaxLength="10" />
+          <Property Type="Boolean" Name="is_active" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="excel_export_header">
+          <Key>
+            <PropertyRef Name="excel_export_id" />
+          </Key>
+          <Property Name="excel_export_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="excel_export_type_id" Type="Int32" Nullable="false" />
+          <Property Name="excel_export_srno" Type="Int32" />
+          <Property Name="excel_export_header_title" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="is_active" Type="Boolean" Nullable="false" />
+          <Property Name="is_uservisible" Type="Boolean" />
+          <Property Name="is_salesvisible" Type="Boolean" />
+          <Property Name="is_invoicevisible" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="SP_GetLoginDtsByRegisterUser_Result">
+          <Property Type="String" Name="id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="user_role_description" Nullable="true" MaxLength="20" />
+          <Property Type="Int32" Name="user_role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="SP_UserList_Result">
+          <Property Type="String" Name="id" Nullable="false" MaxLength="128" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="PhoneNumber" Nullable="true" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="FirstName" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="LastName" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="user_role_description" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="SP_GetAllRosterDetails_Result">
+          <Property Type="Int32" Name="roster_id" Nullable="false" />
+          <Property Type="String" Name="employee_name" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="immigration_status" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="employment_basis" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="contract_start_date" Nullable="true" />
+          <Property Type="DateTime" Name="contract_end_date" Nullable="true" />
+          <Property Type="String" Name="billable" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="client" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="skills" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="continuity_with_us" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="client_manager_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="phone_no" Nullable="false" MaxLength="17" />
+          <Property Type="String" Name="empolyee_email_id" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="client_email_id" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="expenses_applicable" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="payroll" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="remote" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="business_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="business_contact_name" Nullable="true" MaxLength="20" />
+          <Property Type="Double" Name="salary_or_hourly_rate" Nullable="true" />
+          <Property Type="Double" Name="hourly_cost" Nullable="true" />
+          <Property Type="Double" Name="over_head" Nullable="true" />
+          <Property Type="Double" Name="loaded_cost" Nullable="true" />
+          <Property Type="Double" Name="medical" Nullable="true" />
+          <Property Type="Double" Name="other_expenses" Nullable="true" />
+          <Property Type="Double" Name="bill_rate" Nullable="true" />
+          <Property Type="Double" Name="gross_margin" Nullable="true" />
+          <Property Type="Double" Name="total_sow_value" Nullable="true" />
+          <Property Type="String" Name="po" Nullable="true" MaxLength="20" />
+          <Property Type="Double" Name="payroll_hours" Nullable="true" />
+          <Property Type="Double" Name="qb_hours" Nullable="true" />
+          <Property Type="String" Name="expenses_weekly_or_monthly" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="total_cost" Nullable="true" />
+          <Property Type="Double" Name="overhead_per" Nullable="true" />
+          <Property Type="Boolean" Name="vendor" Nullable="true" />
+          <Property Type="Double" Name="sick_leave_cost" Nullable="true" />
+          <Property Type="DateTime" Name="po_effective_date" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SP_GetEmployeeRosterDetails_Result">
+          <Property Type="Int32" Name="roster_id" Nullable="false" />
+          <Property Type="Int32" Name="employee_id" Nullable="false" />
+          <Property Type="String" Name="immigration_status" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="employment_basis" Nullable="true" MaxLength="20" />
+          <Property Type="DateTime" Name="contract_start_date" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="contract_end_date" Nullable="true" Precision="23" />
+          <Property Type="String" Name="billable" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="client" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="skills" Nullable="true" MaxLength="400" />
+          <Property Type="String" Name="continuity_with_us" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="client_manager_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="phone_no" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="empolyee_email_id" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="client_email_id" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="expenses_applicable" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="payroll" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="remote" Nullable="true" MaxLength="20" />
+          <Property Type="String" Name="business_name" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="business_contact_name" Nullable="true" MaxLength="20" />
+          <Property Type="Double" Name="salary_or_hourly_rate" Nullable="true" />
+          <Property Type="Double" Name="hourly_cost" Nullable="true" />
+          <Property Type="Double" Name="over_head" Nullable="true" />
+          <Property Type="Double" Name="loaded_cost" Nullable="true" />
+          <Property Type="Double" Name="medical" Nullable="true" />
+          <Property Type="Double" Name="other_expenses" Nullable="true" />
+          <Property Type="Double" Name="bill_rate" Nullable="true" />
+          <Property Type="Double" Name="gross_margin" Nullable="true" />
+          <Property Type="Double" Name="total_sow_value" Nullable="true" />
+          <Property Type="String" Name="po" Nullable="true" MaxLength="20" />
+          <Property Type="Double" Name="payroll_hours" Nullable="true" />
+          <Property Type="Double" Name="qb_hours" Nullable="true" />
+          <Property Type="Int32" Name="created_by_user_id" Nullable="true" />
+          <Property Type="DateTime" Name="created_datetime" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="last_updated_by_user_id" Nullable="true" />
+          <Property Type="DateTime" Name="last_updated_datetime" Nullable="true" Precision="23" />
+          <Property Type="String" Name="exp_weekly_monthly" Nullable="true" MaxLength="50" />
+          <Property Type="Double" Name="total_cost" Nullable="true" />
+          <Property Type="Double" Name="overhead_per" Nullable="true" />
+          <Property Type="Boolean" Name="vendor" Nullable="true" />
+          <Property Type="Double" Name="sick_leave_cost" Nullable="true" />
+          <Property Type="DateTime" Name="po_effective_date" Nullable="true" Precision="23" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="RosterModelStoreContainer" CdmEntityContainer="RosterEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="RosterModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="RosterModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="RosterModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="RosterModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserRoles">
+            <EntityTypeMapping TypeName="RosterModel.AspNetUserRole">
+              <MappingFragment StoreEntitySet="AspNetUserRoles">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_EmployeeList" FunctionName="RosterModel.Store.SP_EmployeeList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RosterModel.SP_EmployeeList_Result">
+                <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="contractType" ColumnName="contractType" />
+                <ScalarProperty Name="employeename" ColumnName="employeename" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="modifyDate" ColumnName="modifyDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="RosterModel.employee">
+              <MappingFragment StoreEntitySet="employee">
+                <ScalarProperty Name="modifyDate" ColumnName="modifyDate" />
+                <ScalarProperty Name="createdDate" ColumnName="createdDate" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="employeename" ColumnName="employeename" />
+                <ScalarProperty Name="contractType" ColumnName="contractType" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="firstName" ColumnName="firstName" />
+                <ScalarProperty Name="employeeId" ColumnName="employeeId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="RosterModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="User_Role" ColumnName="User_Role" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="user_roles">
+            <EntityTypeMapping TypeName="RosterModel.user_roles">
+              <MappingFragment StoreEntitySet="user_roles">
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="user_role_description" ColumnName="user_role_description" />
+                <ScalarProperty Name="user_role" ColumnName="user_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_LoginUserDetails" FunctionName="RosterModel.Store.SP_LoginUserDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RosterModel.SP_LoginUserDetails_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="User_Role" ColumnName="User_Role" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="rosters">
+            <EntityTypeMapping TypeName="RosterModel.roster">
+              <MappingFragment StoreEntitySet="roster">
+                <ScalarProperty Name="po_effective_date" ColumnName="po_effective_date" />
+                <ScalarProperty Name="sick_leave_cost" ColumnName="sick_leave_cost" />
+                <ScalarProperty Name="vendor" ColumnName="vendor" />
+                <ScalarProperty Name="overhead_per" ColumnName="overhead_per" />
+                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+                <ScalarProperty Name="exp_weekly_monthly" ColumnName="exp_weekly_monthly" />
+                <ScalarProperty Name="last_updated_datetime" ColumnName="last_updated_datetime" />
+                <ScalarProperty Name="last_updated_by_user_id" ColumnName="last_updated_by_user_id" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="created_by_user_id" ColumnName="created_by_user_id" />
+                <ScalarProperty Name="qb_hours" ColumnName="qb_hours" />
+                <ScalarProperty Name="payroll_hours" ColumnName="payroll_hours" />
+                <ScalarProperty Name="po" ColumnName="po" />
+                <ScalarProperty Name="total_sow_value" ColumnName="total_sow_value" />
+                <ScalarProperty Name="gross_margin" ColumnName="gross_margin" />
+                <ScalarProperty Name="bill_rate" ColumnName="bill_rate" />
+                <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
+                <ScalarProperty Name="medical" ColumnName="medical" />
+                <ScalarProperty Name="loaded_cost" ColumnName="loaded_cost" />
+                <ScalarProperty Name="over_head" ColumnName="over_head" />
+                <ScalarProperty Name="hourly_cost" ColumnName="hourly_cost" />
+                <ScalarProperty Name="salary_or_hourly_rate" ColumnName="salary_or_hourly_rate" />
+                <ScalarProperty Name="business_contact_name" ColumnName="business_contact_name" />
+                <ScalarProperty Name="business_name" ColumnName="business_name" />
+                <ScalarProperty Name="remote" ColumnName="remote" />
+                <ScalarProperty Name="payroll" ColumnName="payroll" />
+                <ScalarProperty Name="expenses_applicable" ColumnName="expenses_applicable" />
+                <ScalarProperty Name="client_email_id" ColumnName="client_email_id" />
+                <ScalarProperty Name="empolyee_email_id" ColumnName="empolyee_email_id" />
+                <ScalarProperty Name="phone_no" ColumnName="phone_no" />
+                <ScalarProperty Name="client_manager_name" ColumnName="client_manager_name" />
+                <ScalarProperty Name="continuity_with_us" ColumnName="continuity_with_us" />
+                <ScalarProperty Name="skills" ColumnName="skills" />
+                <ScalarProperty Name="client" ColumnName="client" />
+                <ScalarProperty Name="billable" ColumnName="billable" />
+                <ScalarProperty Name="contract_end_date" ColumnName="contract_end_date" />
+                <ScalarProperty Name="contract_start_date" ColumnName="contract_start_date" />
+                <ScalarProperty Name="employment_basis" ColumnName="employment_basis" />
+                <ScalarProperty Name="immigration_status" ColumnName="immigration_status" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="roster_id" ColumnName="roster_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_RoleList" FunctionName="RosterModel.Store.SP_RoleList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RosterModel.SP_RoleList_Result">
+                <ScalarProperty Name="user_role" ColumnName="user_role" />
+                <ScalarProperty Name="user_role_description" ColumnName="user_role_description" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="excel_export_header">
+            <EntityTypeMapping TypeName="RosterModel.excel_export_header">
+              <MappingFragment StoreEntitySet="excel_export_header">
+                <ScalarProperty Name="is_invoicevisible" ColumnName="is_invoicevisible" />
+                <ScalarProperty Name="is_salesvisible" ColumnName="is_salesvisible" />
+                <ScalarProperty Name="is_uservisible" ColumnName="is_uservisible" />
+                <ScalarProperty Name="is_active" ColumnName="is_active" />
+                <ScalarProperty Name="excel_export_header_title" ColumnName="excel_export_header_title" />
+                <ScalarProperty Name="excel_export_srno" ColumnName="excel_export_srno" />
+                <ScalarProperty Name="excel_export_type_id" ColumnName="excel_export_type_id" />
+                <ScalarProperty Name="excel_export_id" ColumnName="excel_export_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetLoginDtsByRegisterUser" FunctionName="RosterModel.Store.SP_GetLoginDtsByRegisterUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RosterModel.SP_GetLoginDtsByRegisterUser_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="user_role_description" ColumnName="user_role_description" />
+                <ScalarProperty Name="user_role" ColumnName="user_role" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_UserList" FunctionName="RosterModel.Store.SP_UserList">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RosterModel.SP_UserList_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="user_role_description" ColumnName="user_role_description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetAllRosterDetails" FunctionName="RosterModel.Store.SP_GetAllRosterDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RosterModel.SP_GetAllRosterDetails_Result">
+                <ScalarProperty Name="roster_id" ColumnName="roster_id" />
+                <ScalarProperty Name="employee_name" ColumnName="employee_name" />
+                <ScalarProperty Name="immigration_status" ColumnName="immigration_status" />
+                <ScalarProperty Name="employment_basis" ColumnName="employment_basis" />
+                <ScalarProperty Name="contract_start_date" ColumnName="contract_start_date" />
+                <ScalarProperty Name="contract_end_date" ColumnName="contract_end_date" />
+                <ScalarProperty Name="billable" ColumnName="billable" />
+                <ScalarProperty Name="client" ColumnName="client" />
+                <ScalarProperty Name="skills" ColumnName="skills" />
+                <ScalarProperty Name="continuity_with_us" ColumnName="continuity_with_us" />
+                <ScalarProperty Name="client_manager_name" ColumnName="client_manager_name" />
+                <ScalarProperty Name="phone_no" ColumnName="phone_no" />
+                <ScalarProperty Name="empolyee_email_id" ColumnName="empolyee_email_id" />
+                <ScalarProperty Name="client_email_id" ColumnName="client_email_id" />
+                <ScalarProperty Name="expenses_applicable" ColumnName="expenses_applicable" />
+                <ScalarProperty Name="payroll" ColumnName="payroll" />
+                <ScalarProperty Name="remote" ColumnName="remote" />
+                <ScalarProperty Name="business_name" ColumnName="business_name" />
+                <ScalarProperty Name="business_contact_name" ColumnName="business_contact_name" />
+                <ScalarProperty Name="salary_or_hourly_rate" ColumnName="salary_or_hourly_rate" />
+                <ScalarProperty Name="hourly_cost" ColumnName="hourly_cost" />
+                <ScalarProperty Name="over_head" ColumnName="over_head" />
+                <ScalarProperty Name="loaded_cost" ColumnName="loaded_cost" />
+                <ScalarProperty Name="medical" ColumnName="medical" />
+                <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
+                <ScalarProperty Name="bill_rate" ColumnName="bill_rate" />
+                <ScalarProperty Name="gross_margin" ColumnName="gross_margin" />
+                <ScalarProperty Name="total_sow_value" ColumnName="total_sow_value" />
+                <ScalarProperty Name="po" ColumnName="po" />
+                <ScalarProperty Name="payroll_hours" ColumnName="payroll_hours" />
+                <ScalarProperty Name="qb_hours" ColumnName="qb_hours" />
+                <ScalarProperty Name="expenses_weekly_or_monthly" ColumnName="expenses_weekly_or_monthly" />
+                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+                <ScalarProperty Name="overhead_per" ColumnName="overhead_per" />
+                <ScalarProperty Name="vendor" ColumnName="vendor" />
+                <ScalarProperty Name="sick_leave_cost" ColumnName="sick_leave_cost" />
+                <ScalarProperty Name="po_effective_date" ColumnName="po_effective_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_GetEmployeeRosterDetails" FunctionName="RosterModel.Store.SP_GetEmployeeRosterDetails">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="RosterModel.SP_GetEmployeeRosterDetails_Result">
+                <ScalarProperty Name="roster_id" ColumnName="roster_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="immigration_status" ColumnName="immigration_status" />
+                <ScalarProperty Name="employment_basis" ColumnName="employment_basis" />
+                <ScalarProperty Name="contract_start_date" ColumnName="contract_start_date" />
+                <ScalarProperty Name="contract_end_date" ColumnName="contract_end_date" />
+                <ScalarProperty Name="billable" ColumnName="billable" />
+                <ScalarProperty Name="client" ColumnName="client" />
+                <ScalarProperty Name="skills" ColumnName="skills" />
+                <ScalarProperty Name="continuity_with_us" ColumnName="continuity_with_us" />
+                <ScalarProperty Name="client_manager_name" ColumnName="client_manager_name" />
+                <ScalarProperty Name="phone_no" ColumnName="phone_no" />
+                <ScalarProperty Name="empolyee_email_id" ColumnName="empolyee_email_id" />
+                <ScalarProperty Name="client_email_id" ColumnName="client_email_id" />
+                <ScalarProperty Name="expenses_applicable" ColumnName="expenses_applicable" />
+                <ScalarProperty Name="payroll" ColumnName="payroll" />
+                <ScalarProperty Name="remote" ColumnName="remote" />
+                <ScalarProperty Name="business_name" ColumnName="business_name" />
+                <ScalarProperty Name="business_contact_name" ColumnName="business_contact_name" />
+                <ScalarProperty Name="salary_or_hourly_rate" ColumnName="salary_or_hourly_rate" />
+                <ScalarProperty Name="hourly_cost" ColumnName="hourly_cost" />
+                <ScalarProperty Name="over_head" ColumnName="over_head" />
+                <ScalarProperty Name="loaded_cost" ColumnName="loaded_cost" />
+                <ScalarProperty Name="medical" ColumnName="medical" />
+                <ScalarProperty Name="other_expenses" ColumnName="other_expenses" />
+                <ScalarProperty Name="bill_rate" ColumnName="bill_rate" />
+                <ScalarProperty Name="gross_margin" ColumnName="gross_margin" />
+                <ScalarProperty Name="total_sow_value" ColumnName="total_sow_value" />
+                <ScalarProperty Name="po" ColumnName="po" />
+                <ScalarProperty Name="payroll_hours" ColumnName="payroll_hours" />
+                <ScalarProperty Name="qb_hours" ColumnName="qb_hours" />
+                <ScalarProperty Name="created_by_user_id" ColumnName="created_by_user_id" />
+                <ScalarProperty Name="created_datetime" ColumnName="created_datetime" />
+                <ScalarProperty Name="last_updated_by_user_id" ColumnName="last_updated_by_user_id" />
+                <ScalarProperty Name="last_updated_datetime" ColumnName="last_updated_datetime" />
+                <ScalarProperty Name="exp_weekly_monthly" ColumnName="exp_weekly_monthly" />
+                <ScalarProperty Name="total_cost" ColumnName="total_cost" />
+                <ScalarProperty Name="overhead_per" ColumnName="overhead_per" />
+                <ScalarProperty Name="vendor" ColumnName="vendor" />
+                <ScalarProperty Name="sick_leave_cost" ColumnName="sick_leave_cost" />
+                <ScalarProperty Name="po_effective_date" ColumnName="po_effective_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
