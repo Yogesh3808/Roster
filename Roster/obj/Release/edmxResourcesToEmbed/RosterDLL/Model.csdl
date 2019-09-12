@@ -57,16 +57,46 @@
     <FunctionImport Name="SP_LoginUserDetails" ReturnType="Collection(RosterModel.SP_LoginUserDetails_Result)">
       <Parameter Name="LoginEmailID" Mode="In" Type="String" />
     </FunctionImport>
-    <EntitySet Name="rosters" EntityType="RosterModel.roster" />
     <FunctionImport Name="SP_RoleList" ReturnType="Collection(RosterModel.SP_RoleList_Result)" />
     <EntitySet Name="excel_export_header" EntityType="RosterModel.excel_export_header" />
     <FunctionImport Name="SP_GetLoginDtsByRegisterUser" ReturnType="Collection(RosterModel.SP_GetLoginDtsByRegisterUser_Result)">
       <Parameter Name="ID" Mode="In" Type="String" />
     </FunctionImport>
     <FunctionImport Name="SP_UserList" ReturnType="Collection(RosterModel.SP_UserList_Result)" />
+    <FunctionImport Name="SP_EmploymentBasisDetails" ReturnType="Collection(RosterModel.SP_EmploymentBasisDetails_Result)" />
+    <FunctionImport Name="SP_ExpenseFrequencyDetails" ReturnType="Collection(RosterModel.SP_ExpenseFrequencyDetails_Result)" />
+    <FunctionImport Name="SP_ImmigrationStatusDetails" ReturnType="Collection(RosterModel.SP_ImmigrationStatusDetails_Result)" />
+    <FunctionImport Name="SP_PayrollExpenseDetails" ReturnType="Collection(RosterModel.SP_PayrollExpenseDetails_Result)" />
     <FunctionImport Name="SP_GetAllRosterDetails" ReturnType="Collection(RosterModel.SP_GetAllRosterDetails_Result)" />
     <FunctionImport Name="SP_GetEmployeeRosterDetails" ReturnType="Collection(RosterModel.SP_GetEmployeeRosterDetails_Result)">
       <Parameter Name="employee_Id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_EmployeeDetailbyCustomerList" ReturnType="Collection(RosterModel.sp_EmployeeDetailbyCustomerList_Result)">
+      <Parameter Name="billable" Mode="In" Type="String" />
+      <Parameter Name="client" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_clientList" ReturnType="Collection(RosterModel.sp_clientList_Result)" />
+    <FunctionImport Name="SP_ReportList" ReturnType="Collection(RosterModel.SP_ReportList_Result)" />
+    <EntitySet Name="report_list" EntityType="RosterModel.report_list" />
+    <FunctionImport Name="sp_createsummaryreport" ReturnType="Collection(RosterModel.sp_createsummaryreport_Result)">
+      <Parameter Name="report_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_vendorlist" ReturnType="Collection(RosterModel.sp_vendorlist_Result)" />
+    <FunctionImport Name="sp_createcontractendreport" ReturnType="Collection(RosterModel.sp_createcontractendreport_Result)">
+      <Parameter Name="fromdate" Mode="In" Type="DateTime" />
+      <Parameter Name="todate" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="sp_vendorwisedetails" ReturnType="Collection(RosterModel.sp_vendorwisedetails_Result)">
+      <Parameter Name="businessname" Mode="In" Type="String" />
+      <Parameter Name="is_vendor" Mode="In" Type="Boolean" />
+    </FunctionImport>
+    <EntitySet Name="ExceptionLoggings" EntityType="RosterModel.ExceptionLogging" />
+    <EntitySet Name="employment_basis" EntityType="RosterModel.employment_basis" />
+    <EntitySet Name="immigration_status" EntityType="RosterModel.immigration_status" />
+    <EntitySet Name="rosters" EntityType="RosterModel.roster" />
+    <FunctionImport Name="SP_UserMailTrigger">
+      <Parameter Name="UserID" Mode="In" Type="String" />
+      <Parameter Name="GenratePassword" Mode="In" Type="String" />
     </FunctionImport>
   </EntityContainer>
   <ComplexType Name="SP_EmployeeList_Result">
@@ -141,52 +171,6 @@
     <Property Type="String" Name="LastName" Nullable="true" MaxLength="20" />
     <Property Type="Int32" Name="User_Role" Nullable="true" />
   </ComplexType>
-  <EntityType Name="roster">
-    <Key>
-      <PropertyRef Name="roster_id" />
-    </Key>
-    <Property Name="roster_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="employee_id" Type="Int32" Nullable="false" />
-    <Property Name="immigration_status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="employment_basis" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="contract_start_date" Type="DateTime" Precision="3" />
-    <Property Name="contract_end_date" Type="DateTime" Precision="3" />
-    <Property Name="billable" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="client" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="skills" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
-    <Property Name="continuity_with_us" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-    <Property Name="client_manager_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="phone_no" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="empolyee_email_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="client_email_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="expenses_applicable" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="payroll" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="remote" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="business_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="business_contact_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="salary_or_hourly_rate" Type="Double" />
-    <Property Name="hourly_cost" Type="Double" />
-    <Property Name="over_head" Type="Double" />
-    <Property Name="loaded_cost" Type="Double" />
-    <Property Name="medical" Type="Double" />
-    <Property Name="other_expenses" Type="Double" />
-    <Property Name="bill_rate" Type="Double" />
-    <Property Name="gross_margin" Type="Double" />
-    <Property Name="total_sow_value" Type="Double" />
-    <Property Name="po" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-    <Property Name="payroll_hours" Type="Double" />
-    <Property Name="qb_hours" Type="Double" />
-    <Property Name="created_by_user_id" Type="Int32" />
-    <Property Name="created_datetime" Type="DateTime" Precision="3" />
-    <Property Name="last_updated_by_user_id" Type="Int32" />
-    <Property Name="last_updated_datetime" Type="DateTime" Precision="3" />
-    <Property Name="exp_weekly_monthly" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="total_cost" Type="Double" />
-    <Property Name="overhead_per" Type="Double" />
-    <Property Name="vendor" Type="Boolean" />
-    <Property Name="sick_leave_cost" Type="Double" />
-    <Property Name="po_effective_date" Type="DateTime" Precision="3" />
-  </EntityType>
   <ComplexType Name="SP_RoleList_Result">
     <Property Type="Int32" Name="user_role" Nullable="false" />
     <Property Type="String" Name="user_role_description" Nullable="true" MaxLength="10" />
@@ -224,11 +208,33 @@
     <Property Type="String" Name="LastName" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="user_role_description" Nullable="true" MaxLength="20" />
   </ComplexType>
+  <ComplexType Name="SP_EmploymentBasisDetails_Result">
+    <Property Type="Int32" Name="employment_basis_id" Nullable="false" />
+    <Property Type="String" Name="employment_basis" Nullable="true" MaxLength="100" />
+    <Property Type="Boolean" Name="is_active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SP_ExpenseFrequencyDetails_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Payroll_Expense" Nullable="true" MaxLength="1" />
+    <Property Type="Boolean" Name="is_active" Nullable="false" />
+  </ComplexType>
+  <ComplexType Name="SP_ImmigrationStatusDetails_Result">
+    <Property Type="Int32" Name="immigration_status_id" Nullable="false" />
+    <Property Type="String" Name="immigration_status" Nullable="true" MaxLength="100" />
+    <Property Type="Boolean" Name="is_active" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="SP_PayrollExpenseDetails_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Description" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="Payroll_Expense" Nullable="true" MaxLength="1" />
+    <Property Type="Boolean" Name="is_active" Nullable="false" />
+  </ComplexType>
   <ComplexType Name="SP_GetAllRosterDetails_Result">
     <Property Type="Int32" Name="roster_id" Nullable="false" />
     <Property Type="String" Name="employee_name" Nullable="false" MaxLength="200" />
-    <Property Type="String" Name="immigration_status" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="employment_basis" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="immigration_status" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="employment_basis" Nullable="true" MaxLength="100" />
     <Property Type="DateTime" Name="contract_start_date" Nullable="true" />
     <Property Type="DateTime" Name="contract_end_date" Nullable="true" />
     <Property Type="String" Name="billable" Nullable="true" MaxLength="20" />
@@ -239,8 +245,8 @@
     <Property Type="String" Name="phone_no" Nullable="false" MaxLength="17" />
     <Property Type="String" Name="empolyee_email_id" Nullable="false" MaxLength="200" />
     <Property Type="String" Name="client_email_id" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="expenses_applicable" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="payroll" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="expenses_applicable" Nullable="true" MaxLength="1" />
+    <Property Type="String" Name="payroll" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="remote" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="business_name" Nullable="true" MaxLength="100" />
     <Property Type="String" Name="business_contact_name" Nullable="true" MaxLength="20" />
@@ -262,12 +268,17 @@
     <Property Type="Boolean" Name="vendor" Nullable="true" />
     <Property Type="Double" Name="sick_leave_cost" Nullable="true" />
     <Property Type="DateTime" Name="po_effective_date" Nullable="true" />
+    <Property Type="Int32" Name="immigration_status_id" Nullable="true" />
+    <Property Type="Int32" Name="employment_basis_id" Nullable="true" />
+    <Property Type="Int32" Name="payroll_id" Nullable="true" />
+    <Property Type="Int32" Name="exp_weekly_monthly_id" Nullable="true" />
+    <Property Type="Int32" Name="employee_id" Nullable="false" />
   </ComplexType>
   <ComplexType Name="SP_GetEmployeeRosterDetails_Result">
     <Property Type="Int32" Name="roster_id" Nullable="false" />
     <Property Type="Int32" Name="employee_id" Nullable="false" />
-    <Property Type="String" Name="immigration_status" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="employment_basis" Nullable="true" MaxLength="20" />
+    <Property Type="Int32" Name="immigration_status_id" Nullable="true" />
+    <Property Type="Int32" Name="employment_basis_id" Nullable="true" />
     <Property Type="DateTime" Name="contract_start_date" Nullable="true" Precision="23" />
     <Property Type="DateTime" Name="contract_end_date" Nullable="true" Precision="23" />
     <Property Type="String" Name="billable" Nullable="true" MaxLength="20" />
@@ -278,8 +289,8 @@
     <Property Type="String" Name="phone_no" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="empolyee_email_id" Nullable="true" MaxLength="50" />
     <Property Type="String" Name="client_email_id" Nullable="true" MaxLength="50" />
-    <Property Type="String" Name="expenses_applicable" Nullable="true" MaxLength="20" />
-    <Property Type="String" Name="payroll" Nullable="true" MaxLength="20" />
+    <Property Type="String" Name="expenses_applicable" Nullable="true" MaxLength="1" />
+    <Property Type="Int32" Name="payroll_id" Nullable="true" />
     <Property Type="String" Name="remote" Nullable="true" MaxLength="20" />
     <Property Type="String" Name="business_name" Nullable="true" MaxLength="100" />
     <Property Type="String" Name="business_contact_name" Nullable="true" MaxLength="20" />
@@ -299,11 +310,147 @@
     <Property Type="DateTime" Name="created_datetime" Nullable="true" Precision="23" />
     <Property Type="Int32" Name="last_updated_by_user_id" Nullable="true" />
     <Property Type="DateTime" Name="last_updated_datetime" Nullable="true" Precision="23" />
-    <Property Type="String" Name="exp_weekly_monthly" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="exp_weekly_monthly_id" Nullable="true" />
     <Property Type="Double" Name="total_cost" Nullable="true" />
     <Property Type="Double" Name="overhead_per" Nullable="true" />
     <Property Type="Boolean" Name="vendor" Nullable="true" />
     <Property Type="Double" Name="sick_leave_cost" Nullable="true" />
     <Property Type="DateTime" Name="po_effective_date" Nullable="true" Precision="23" />
+    <Property Type="String" Name="payroll" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="expenses_weekly_or_monthly" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="immigration_status" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="employment_basis" Nullable="true" MaxLength="100" />
   </ComplexType>
+  <ComplexType Name="sp_EmployeeDetailbyCustomerList_Result">
+    <Property Type="String" Name="employeename" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="client" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="contract_start_date" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="contract_end_date" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="client_manager_name" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="billable" Nullable="true" MaxLength="20" />
+  </ComplexType>
+  <ComplexType Name="sp_clientList_Result">
+    <Property Type="Int64" Name="ID" Nullable="true" />
+    <Property Type="String" Name="Client" Nullable="true" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="SP_ReportList_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="report_name" Nullable="true" MaxLength="100" />
+    <Property Type="String" Name="description" Nullable="true" MaxLength="200" />
+    <Property Type="Boolean" Name="is_active" Nullable="false" />
+    <Property Type="Boolean" Name="is_summary" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="report_list">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="report_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="is_active" Type="Boolean" Nullable="false" />
+    <Property Name="is_summary" Type="Boolean" />
+  </EntityType>
+  <ComplexType Name="sp_createsummaryreport_Result">
+    <Property Type="String" Name="description" Nullable="false" MaxLength="400" />
+    <Property Type="Int32" Name="Billable" Nullable="true" />
+    <Property Type="Int32" Name="Non_Billable" Nullable="true" />
+    <Property Type="Int32" Name="Terminated" Nullable="true" />
+    <Property Type="Int32" Name="Total" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="sp_vendorlist_Result">
+    <Property Type="Int64" Name="ID" Nullable="true" />
+    <Property Type="String" Name="business_name" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="sp_createcontractendreport_Result">
+    <Property Type="String" Name="employeename" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="client" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="contract_start_date" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="contract_end_date" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="business_name" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="client_manager_name" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="sp_vendorwisedetails_Result">
+    <Property Type="String" Name="employeename" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="client" Nullable="false" MaxLength="50" />
+    <Property Type="String" Name="contract_start_date" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="contract_end_date" Nullable="true" MaxLength="15" />
+    <Property Type="String" Name="business_name" Nullable="false" MaxLength="100" />
+  </ComplexType>
+  <EntityType Name="ExceptionLogging">
+    <Key>
+      <PropertyRef Name="ExceptionId" />
+    </Key>
+    <Property Name="ExceptionId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ExceptionMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ControllerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ActionName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="ExceptionStackTrace" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="LogTime" Type="DateTime" Precision="3" />
+    <Property Name="UserIP" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="employment_basis">
+    <Key>
+      <PropertyRef Name="employment_basis_id" />
+    </Key>
+    <Property Name="employment_basis_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employment_basis_desc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="is_active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="immigration_status">
+    <Key>
+      <PropertyRef Name="immigration_status_id" />
+    </Key>
+    <Property Name="immigration_status_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="immigration_status_desc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="is_active" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="roster">
+    <Key>
+      <PropertyRef Name="roster_id" />
+    </Key>
+    <Property Name="roster_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="employee_id" Type="Int32" Nullable="false" />
+    <Property Name="immigration_status_id" Type="Int32" />
+    <Property Name="employment_basis_id" Type="Int32" />
+    <Property Name="contract_start_date" Type="DateTime" Precision="3" />
+    <Property Name="contract_end_date" Type="DateTime" Precision="3" />
+    <Property Name="billable" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="client" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="skills" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+    <Property Name="continuity_with_us" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="client_manager_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="phone_no" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="empolyee_email_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="client_email_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="expenses_applicable" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+    <Property Name="payroll_id" Type="Int32" />
+    <Property Name="remote" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="business_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="business_contact_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="salary_or_hourly_rate" Type="Double" />
+    <Property Name="hourly_cost" Type="Double" />
+    <Property Name="over_head" Type="Double" />
+    <Property Name="loaded_cost" Type="Double" />
+    <Property Name="medical" Type="Double" />
+    <Property Name="other_expenses" Type="Double" />
+    <Property Name="bill_rate" Type="Double" />
+    <Property Name="gross_margin" Type="Double" />
+    <Property Name="total_sow_value" Type="Double" />
+    <Property Name="po" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="payroll_hours" Type="Double" />
+    <Property Name="qb_hours" Type="Double" />
+    <Property Name="created_by_user_id" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="created_datetime" Type="DateTime" Precision="3" />
+    <Property Name="last_updated_by_user_id" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+    <Property Name="last_updated_datetime" Type="DateTime" Precision="3" />
+    <Property Name="exp_weekly_monthly_id" Type="Int32" />
+    <Property Name="total_cost" Type="Double" />
+    <Property Name="overhead_per" Type="Double" />
+    <Property Name="vendor" Type="Boolean" />
+    <Property Name="sick_leave_cost" Type="Double" />
+    <Property Name="po_effective_date" Type="DateTime" Precision="3" />
+    <Property Name="add_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Status" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+  </EntityType>
 </Schema>

@@ -1,4 +1,5 @@
-﻿@model Roster.Models.EmployeeViewModel
+﻿
+@model Roster.Models.EmployeeViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layoutpage.cshtml";
@@ -7,14 +8,14 @@
 
     <div class="app-title">
         <div>
-            <h1>Employee Management</h1>
+            <h1>Manage Employee</h1>
         </div>
     </div>
     @using (Html.BeginForm("EmployeeDetails", "Employee", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
         @Html.HiddenFor(m => m.EmployeeID)
-  
+
         <div class="row">
             <div class="col-md-12">
                 <div class="tile">
@@ -32,17 +33,17 @@
                                     @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", maxlength = 20, @placeholder = "Last Name", @onkeypress = "return alphaOnly(event);" })
                                     @Html.ValidationMessageFor(m => m.LastName, "", new { @style = "color:red" })
                                 </div>
+
+                            </div>
+                            <div class="form-group row">
                                 <label class="control-label col-md-1">Email Id<span class="star">*</span></label>
                                 <div class="col-md-3">
                                     @Html.TextBoxFor(m => m.Email, new { @class = "form-control", maxlength = 50, @placeholder = "Email Id" })
                                     @Html.ValidationMessageFor(m => m.Email, "", new { @style = "color:red" })
                                 </div>
-                            </div>
-                            <div class="form-group row">
-                               
-                                <label class="control-label col-md-1">Phone no<span class="star">*</span></label>
+                                <label class="control-label col-md-1">Phone No<span class="star">*</span></label>
                                 <div class="col-md-3">
-                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", maxlength = 10, @placeholder = "Phone Number", @onkeypress = "return IsNumeric(event);" })
+                                    @Html.TextBoxFor(m => m.PhoneNumber, new { @id= "PhoneNumber", @class = "form-control", maxlength = 12, @placeholder = "Phone Number" })
                                     @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @style = "color:red" })
                                 </div>
                             </div>
@@ -151,4 +152,10 @@
             });
     </script>
     <script src="~/Scripts/CustomFunction.js"></script>
+    <script src="~/Scripts/jquery.mask.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#PhoneNumber").mask('(000) 000-0000');
+        })
+    </script>
 }

@@ -1,0 +1,174 @@
+﻿
+@model List<Roster.RosterDLL.sp_createsummaryreport_Result>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutpage.cshtml";
+}
+<div class="app-content" style="margin-top:70px;">
+
+    <div class="app-title">
+        <div>
+            <h1>@ViewBag.data </h1>
+
+        </div>
+    </div>
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="row">
+            <div class="clearfix"></div>
+            <div class="col-md-12">
+                <div class="tile">
+                    @using (Html.BeginForm("Export", "ReportDashboard", FormMethod.Post))
+                    {
+                        <div>
+                            <button class="btn btn-success" type="submit" id="btnExport"><i class="fa fa-fw fa-lg fa-check-circle"></i>Export To Excel</button>
+                        </div>
+                    }
+                        <br />
+                        <div class="form-group row table-responsive">
+                            <div class="col-md-12">
+                                <div id="new-search-area"></div>
+                            </div>
+
+                            <table class="table table-hover table-bordered " id="sampleTable">
+                                <thead>
+                                    <tr>
+                                        <th>Description</th>
+                                        <th>Bilable</th>
+                                        <th>Non Bilable</th>
+                                        <th>Terminated</th>
+                                        <th>Total</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td>@item.description</td>
+                                            @if (@ViewBag.reportId == "2")
+                                            {
+                                                <td><a href="~/Report/EmployeeDetailbyCustomerReport?billable=B&Client=@item.description" style="font-weight:800;">@item.Billable</a></td>
+                                                <td><a href="~/Report/EmployeeDetailbyCustomerReport?billable=NB&Client=@item.description" style="font-weight:800;">@item.Non_Billable</a></td>
+                                                <td><a href="~/Report/EmployeeDetailbyCustomerReport?billable=Ter&Client=@item.description" style="font-weight:800;">@item.Terminated</a></td>
+                                                <td><a href="~/Report/EmployeeDetailbyCustomerReport?billable=A&Client=@item.description" style="font-weight:800;">@item.Total</a></td>
+                                            }
+                                            else
+                                            {
+                                                <td><a style="font-weight:800;">@item.Billable</a></td>
+                                                <td><a style="font-weight:800;">@item.Non_Billable</a></td>
+                                                <td><a style="font-weight:800;">@item.Terminated</a></td>
+                                                <td><a style="font-weight:800;">@item.Total</a></td>
+                                            }
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+            </div>
+        </div>
+    }
+</div>
+
+
+
+@section js{
+    <style>
+        .inputdisabled {
+            background-color: #e9ecef;
+            opacity: 1
+        }
+
+        #new-search-area {
+            width: 100%;
+            clear: both;
+            /*padding-top: 20px;
+            padding-bottom: 20px;*/
+        }
+
+            #new-search-area input {
+                display: block;
+                width: 700px;
+                padding: 0.375rem 0.75rem;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                color: #495057;
+                background-color: #FFF;
+                background-clip: padding-box;
+                border: 2px solid #ced4da;
+                border-radius: 4px;
+                -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+            }
+    </style>
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="~/Template/js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Template/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#sampleTable').DataTable(
+            {
+                //"bInfo": false,
+                //"bLengthChange": false,
+                //initComplete : function() {
+                //    $("#sampleTable_filter").detach().appendTo('#new-search-area');
+                //}
+            });
+    </script>
+    <script src="~/Scripts/CustomFunction.js"></script>
+
+    @*<script>
+
+       $("#btnExport").click(function (e) {
+           var tab_text = " <div style='width:20%; margin-left:300px; font-size: 200%; font-weight: bold; color:#357ebd;'> </div><br></br><table border='4px'><tr style='background-color:; color:Black;'>";
+           var textRange; var j = 0;
+           tab = document.getElementById('sampleTable'); // id of table
+           for (j = 0; j < tab.rows.length; j++) {
+               tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+           }
+           tab_text = tab_text + "</table> <br></br> <div style='color:#1F618D; font:Bold; margin-left:150px;font-size: 120%;'></div><div style='color:#1F618D; font-size: 120%; font:Bold; margin-left:150px;'> </div><div style='color:#1F618D; font:Bold; font-size: 120%; margin-left:150px;'></div>";
+           tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+           tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+           tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+           var ua = window.navigator.userAgent;
+           var msie = ua.indexOf("MSIE ");
+           if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+           {
+               txtArea1.document.open("txt/html", "replace");
+               txtArea1.document.write(tab_text);
+               txtArea1.document.close();
+               txtArea1.focus();
+               sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
+           }
+           else {
+               //other browser not tested on IE 11
+               sa = ('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+               if (@ViewBag.reportId == "2") {
+                   var link = document.createElement("a");
+                   link.download = "Employee Details by Customer.xls";
+                   link.href = sa;
+                   link.click();
+               }
+               else if (@ViewBag.reportId == "1") {
+                   var link = document.createElement("a");
+                   link.download = "Number of Employees by Skill.xls";
+                   link.href = sa;
+                   link.click();
+               }
+               else if (@ViewBag.reportId == "3") {
+                   var link = document.createElement("a");
+                   link.download = "Employment Basis Classification Report.xls";
+                   link.href = sa;
+                   link.click();
+               }
+           }
+   return (link);
+});
+    </script>*@
+}
+

@@ -13,7 +13,7 @@ namespace Roster.Controllers
     [ActionFilter]
     public class EmployeeController : Controller
     {
-        // GET: Employee
+        
        
         private readonly RosterEntities _entities = new RosterEntities();
         public GenericUnitOfWork UnitOfWork = new GenericUnitOfWork();
@@ -21,7 +21,6 @@ namespace Roster.Controllers
         {
             return View();
         }
-
         public ActionResult EmployeeDetails()
         {
             EmployeeViewModel objEmployeeViewModel = new EmployeeViewModel();
@@ -45,7 +44,6 @@ namespace Roster.Controllers
             return View("EmployeeDetails", objEmployeeViewModel);
 
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult EmployeeDetails(EmployeeViewModel model)
@@ -62,7 +60,7 @@ namespace Roster.Controllers
                 else
                 {
                     var EmpEmailIDExist = UnitOfWork.GetRepositoryInstance<employee>().GetAllRecordsIQueryable().Where(i => i.email == model.Email.Trim()).ToList();
-                    if (EmpEmailIDExist != null)
+                    if (EmpEmailIDExist != null && EmpEmailIDExist.Count!=0)
                     {
                            if (EmpEmailIDExist[0].employeeId != model.EmployeeID)
                             ModelState.AddModelError("Email", "Email ID is already used");
@@ -77,6 +75,7 @@ namespace Roster.Controllers
                     dt.Phone = model.PhoneNumber.Trim();
                     dt.email = model.Email.Trim();
                     dt.employeename = model.FirstName.Trim() + " " + model.LastName.Trim();
+                    dt.active = true;
                     if (dt.employeeId == 0)
                     {
                         
@@ -91,18 +90,21 @@ namespace Roster.Controllers
                         TempData["msg3"] = "<script language='javascript' type='text/javascript'>alert('Changes Updated Successfully!');</script>";
                     }
                     if (Convert.ToInt32(Session["CheckRoster"]) == 1)
-                        return RedirectToAction("RosterDetails", "Roster");
+                    {
+                        Session["EmployeeId"] = dt.employeeId;
+                        return RedirectToAction("NewAddedEmployee", "Roster");
+                    }
+                   
                 }
                 model.ObjEmployeeList = _entities.SP_EmployeeList().ToList();
-                 return View("EmployeeDetails", model); ;
+                return View(model);
+
             }
             catch (Exception e)
             {
                 throw e;
             }
         }
-
-
         [HttpGet]
         public ActionResult GetEmployeeById(int empId)
         {

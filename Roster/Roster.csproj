@@ -193,6 +193,8 @@
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ReportDashboardController.cs" />
     <Compile Include="Controllers\RosterController.cs" />
     <Compile Include="Filter\ActionFilter.cs" />
     <Compile Include="Filter\AuthorizeUserFilter.cs" />
@@ -204,6 +206,8 @@
     <Compile Include="Models\EmployeeViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ReportCountViewModel.cs" />
+    <Compile Include="Models\ReportViewModels.cs" />
     <Compile Include="Models\RosterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
@@ -230,7 +234,16 @@
     <Compile Include="RosterDLL\employee.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="RosterDLL\employment_basis.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="RosterDLL\excel_export_header.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RosterDLL\ExceptionLogging.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RosterDLL\immigration_status.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="RosterDLL\Model.Context.cs">
@@ -248,10 +261,31 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="RosterDLL\report_list.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="RosterDLL\roster.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="RosterDLL\sp_clientList_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RosterDLL\sp_createcontractendreport_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RosterDLL\sp_createsummaryreport_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RosterDLL\sp_EmployeeDetailbyCustomerList_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="RosterDLL\SP_EmployeeList_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RosterDLL\SP_EmploymentBasisDetails_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RosterDLL\SP_ExpenseFrequencyDetails_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="RosterDLL\SP_GetAllRosterDetails_Result.cs">
@@ -263,13 +297,28 @@
     <Compile Include="RosterDLL\SP_GetLoginDtsByRegisterUser_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="RosterDLL\SP_ImmigrationStatusDetails_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="RosterDLL\SP_LoginUserDetails_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RosterDLL\SP_PayrollExpenseDetails_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RosterDLL\SP_ReportList_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="RosterDLL\SP_RoleList_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="RosterDLL\SP_UserList_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RosterDLL\sp_vendorlist_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RosterDLL\sp_vendorwisedetails_Result.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="RosterDLL\user_roles.cs">
@@ -343,6 +392,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\CustomFunction.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -419,6 +469,12 @@
     <Content Include="Views\Roster\Index.cshtml" />
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Manage\AfterLoginChangePassword.cshtml" />
+    <Content Include="Views\Report\EmployeeDetailbyCustomerReport.cshtml" />
+    <Content Include="Views\ReportDashboard\Index.cshtml" />
+    <Content Include="Views\ReportDashboard\ReportCount.cshtml" />
+    <Content Include="Views\Report\RptVendor.cshtml" />
+    <Content Include="Views\Report\ContractEndreport.cshtml" />
+    <Content Include="Views\Shared\InnerErrorView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

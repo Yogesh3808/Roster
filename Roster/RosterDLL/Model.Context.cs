@@ -35,8 +35,12 @@ namespace Roster.RosterDLL
         public virtual DbSet<employee> employees { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<user_roles> user_roles { get; set; }
-        public virtual DbSet<roster> rosters { get; set; }
         public virtual DbSet<excel_export_header> excel_export_header { get; set; }
+        public virtual DbSet<report_list> report_list { get; set; }
+        public virtual DbSet<ExceptionLogging> ExceptionLoggings { get; set; }
+        public virtual DbSet<employment_basis> employment_basis { get; set; }
+        public virtual DbSet<immigration_status> immigration_status { get; set; }
+        public virtual DbSet<roster> rosters { get; set; }
     
         public virtual ObjectResult<SP_EmployeeList_Result> SP_EmployeeList()
         {
@@ -71,6 +75,26 @@ namespace Roster.RosterDLL
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_UserList_Result>("SP_UserList");
         }
     
+        public virtual ObjectResult<SP_EmploymentBasisDetails_Result> SP_EmploymentBasisDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_EmploymentBasisDetails_Result>("SP_EmploymentBasisDetails");
+        }
+    
+        public virtual ObjectResult<SP_ExpenseFrequencyDetails_Result> SP_ExpenseFrequencyDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ExpenseFrequencyDetails_Result>("SP_ExpenseFrequencyDetails");
+        }
+    
+        public virtual ObjectResult<SP_ImmigrationStatusDetails_Result> SP_ImmigrationStatusDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ImmigrationStatusDetails_Result>("SP_ImmigrationStatusDetails");
+        }
+    
+        public virtual ObjectResult<SP_PayrollExpenseDetails_Result> SP_PayrollExpenseDetails()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_PayrollExpenseDetails_Result>("SP_PayrollExpenseDetails");
+        }
+    
         public virtual ObjectResult<SP_GetAllRosterDetails_Result> SP_GetAllRosterDetails()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetAllRosterDetails_Result>("SP_GetAllRosterDetails");
@@ -83,6 +107,82 @@ namespace Roster.RosterDLL
                 new ObjectParameter("employee_Id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_GetEmployeeRosterDetails_Result>("SP_GetEmployeeRosterDetails", employee_IdParameter);
+        }
+    
+        public virtual ObjectResult<sp_EmployeeDetailbyCustomerList_Result> sp_EmployeeDetailbyCustomerList(string billable, string client)
+        {
+            var billableParameter = billable != null ?
+                new ObjectParameter("billable", billable) :
+                new ObjectParameter("billable", typeof(string));
+    
+            var clientParameter = client != null ?
+                new ObjectParameter("client", client) :
+                new ObjectParameter("client", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_EmployeeDetailbyCustomerList_Result>("sp_EmployeeDetailbyCustomerList", billableParameter, clientParameter);
+        }
+    
+        public virtual ObjectResult<sp_clientList_Result> sp_clientList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_clientList_Result>("sp_clientList");
+        }
+    
+        public virtual ObjectResult<SP_ReportList_Result> SP_ReportList()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_ReportList_Result>("SP_ReportList");
+        }
+    
+        public virtual ObjectResult<sp_createsummaryreport_Result> sp_createsummaryreport(Nullable<int> report_id)
+        {
+            var report_idParameter = report_id.HasValue ?
+                new ObjectParameter("report_id", report_id) :
+                new ObjectParameter("report_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_createsummaryreport_Result>("sp_createsummaryreport", report_idParameter);
+        }
+    
+        public virtual ObjectResult<sp_vendorlist_Result> sp_vendorlist()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_vendorlist_Result>("sp_vendorlist");
+        }
+    
+        public virtual ObjectResult<sp_createcontractendreport_Result> sp_createcontractendreport(Nullable<System.DateTime> fromdate, Nullable<System.DateTime> todate)
+        {
+            var fromdateParameter = fromdate.HasValue ?
+                new ObjectParameter("fromdate", fromdate) :
+                new ObjectParameter("fromdate", typeof(System.DateTime));
+    
+            var todateParameter = todate.HasValue ?
+                new ObjectParameter("todate", todate) :
+                new ObjectParameter("todate", typeof(System.DateTime));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_createcontractendreport_Result>("sp_createcontractendreport", fromdateParameter, todateParameter);
+        }
+    
+        public virtual ObjectResult<sp_vendorwisedetails_Result> sp_vendorwisedetails(string businessname, Nullable<bool> is_vendor)
+        {
+            var businessnameParameter = businessname != null ?
+                new ObjectParameter("businessname", businessname) :
+                new ObjectParameter("businessname", typeof(string));
+    
+            var is_vendorParameter = is_vendor.HasValue ?
+                new ObjectParameter("is_vendor", is_vendor) :
+                new ObjectParameter("is_vendor", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_vendorwisedetails_Result>("sp_vendorwisedetails", businessnameParameter, is_vendorParameter);
+        }
+    
+        public virtual int SP_UserMailTrigger(string userID, string genratePassword)
+        {
+            var userIDParameter = userID != null ?
+                new ObjectParameter("UserID", userID) :
+                new ObjectParameter("UserID", typeof(string));
+    
+            var genratePasswordParameter = genratePassword != null ?
+                new ObjectParameter("GenratePassword", genratePassword) :
+                new ObjectParameter("GenratePassword", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("SP_UserMailTrigger", userIDParameter, genratePasswordParameter);
         }
     }
 }

@@ -58,37 +58,17 @@
                         <div class="col-lg-3 offset-lg-1">
                             <div class="form-group">
                                 <label>Immigration Status</label>
-                                @Html.DropDownList("immigration_status", new List<SelectListItem>
-                                {
-                                    new SelectListItem {Text = "Citizen", Value = "Citizen"},
-                                    new SelectListItem {Text = "H1B", Value = "H1B"},
-                                    new SelectListItem {Text = "OPT-EAD", Value = "OPT-EAD"},
-                                    new SelectListItem {Text = "GC-EAD", Value = "GC-EAD"},
-                                    new SelectListItem {Text = "GC", Value = "GC"},
-                                    new SelectListItem {Text = "CPT", Value = "CPT"},
-                                    new SelectListItem {Text = "L2-EAD", Value = "L2-EAD"},
-                                    new SelectListItem {Text = "H4 EAD", Value = "H4 EAD"},
-                                    new SelectListItem {Text = "TN Visa – Canada", Value = "TN Visa – Canada"},
-
-
-                                }, "Select Immigration", new { @class = "form-control", @style = "width:230px; height:35px;" })
+                                @Html.TextBoxFor(m => m.immigration_status, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.immigration_status, "", new { @style = "color:red" })
+                                @Html.HiddenFor(m => m.immigration_status)
                             </div>
                         </div>
                         <div class="col-lg-3 offset-lg-1">
                             <div class="form-group">
                                 <label>Employment Basis</label>
-                                @Html.DropDownList("employment_basis", new List<SelectListItem>
-                                {
-
-                                  new SelectListItem {Text = "Annual W2", Value = "Annual W2"},
-                                   new SelectListItem {Text = "Hourly W2", Value = "Hourly W2"},
-                                   new SelectListItem {Text = "Individual 1099", Value = "Individual 1099"},
-                                   new SelectListItem {Text = "C2C", Value = "C2C"},
-                                   new SelectListItem {Text = "C2H", Value = "C2H"},
-                                   new SelectListItem {Text = "Direct Hire", Value = "Direct Hire"},
-
-                                }, "Select Employment", new { @class = "form-control", @style = "width:230px; height:35px;" })
-                                @Html.ValidationMessage("employment_basis", "", new { @style = "color:red" })
+                                @Html.TextBoxFor(m => m.employment_basis, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.employment_basis, "", new { @style = "color:red" })
+                                @Html.HiddenFor(m => m.employment_basis)
                             </div>
                         </div>
                     </div>
@@ -98,14 +78,14 @@
                             <div class="form-group">
                                 <label>Contract Start Date </label>
                                 @Html.TextBoxFor(m => m.contract_start_date, "{0:MM/dd/yyyy}", new { @class = "form-control", @style = "height:35px;", autocomplete = "off" })
-
+                                @Html.ValidationMessageFor(m => m.contract_start_date, "", new { @style = "color:red" })
                             </div>
                         </div>
                         <div class="col-lg-3 offset-lg-1">
                             <div class="form-group">
                                 <label>Contract End Date </label>
                                 @Html.TextBoxFor(m => m.contract_end_date, "{0:MM/dd/yyyy}", new { @class = "form-control", @style = "height:35px;", autocomplete = "off" })
-
+                                @Html.ValidationMessageFor(m => m.contract_end_date, "", new { @style = "color:red" })
 
                             </div>
                         </div>
@@ -119,8 +99,10 @@
                                     new SelectListItem {Text = "B", Value = "B"},
                                     new SelectListItem {Text = "NB", Value = "NB"},
                                     new SelectListItem {Text = "Ter", Value = "Ter"},
+                                    new SelectListItem {Text = "Backed out", Value = "Backed out"},
+                            
 
-                                }, "Select Billable", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                }, "Select Billable", new { @class = "form-control", @style = "width:230px; height:35px;" })
                                 @Html.ValidationMessage("billable", "", new { @style = "color:red" })
                             </div>
                         </div>
@@ -170,8 +152,7 @@
                                     new SelectListItem {Text = "No", Value = "No"},
 
 
-                                }, "Select Continuity", new { @class = "form-control", @style = "width:200px; height:35px;" })
-                                @Html.ValidationMessage("continuity_with_us", "", new { @style = "color:red" })
+                                }, "Select Continuity", new { @class = "form-control", @style = "width:230px; height:35px;" })
 
                             </div>
                         </div>
@@ -185,8 +166,7 @@
                                     new SelectListItem {Text = "No", Value = "No"},
 
 
-                                }, "Select Remote", new { @class = "form-control", @style = "width:200px; height:35px;" })
-                                @Html.ValidationMessage("Remote", "", new { @style = "color:red" })
+                                }, "Select Remote", new { @class = "form-control", @style = "width:230px; height:35px;" })
                             </div>
                         </div>
 
@@ -202,8 +182,7 @@
                                    new SelectListItem {Text = "N", Value = "N"},
 
 
-                               }, "Select Expenses Applicable", new { @class = "form-control", @style = "width:200px; height:35px;" })
-                                @Html.ValidationMessage("expenses_applicable", "", new { @style = "color:red" })
+                               }, "Select Expenses Applicable", new { @class = "form-control", @style = "width:230px; height:35px;" })
                             </div>
                         </div>
 
@@ -213,29 +192,21 @@
                         <div class="col-lg-3 offset-lg-1">
                             <div class="form-group">
                                 <label>Expense Frequency</label>
-                                @Html.DropDownList("exp_weekly_monthly", new List<SelectListItem>
-                                      {
-                                           new SelectListItem {Text = "Bi-weekly", Value = "Bi-weekly"},
-                                             new SelectListItem {Text = "Monthly", Value = "Monthly"},
-
-                                      }, "Select Expense Frequency", new { @class = "form-control", @style = "width:200px; height:35px;" })
-                                @Html.ValidationMessage("exp_weekly_monthly", "", new { @style = "color:red" })
+                                @Html.DropDownListFor(m => m.exp_weekly_monthly, new SelectList(Model.Objexp_weekly_monthly, "Id", "Description", Model.payroll), "Select Expense Frequency", new { @class = "form-control", @style = "height:35px;" })
+                                @Html.HiddenFor(m => m.exp_weekly_monthly)
                             </div>
                         </div>
                         <div class="col-lg-3 offset-lg-1">
                             <div class="form-group">
                                 <label>Payroll Frequency</label>
-                                @Html.DropDownList("Payroll", new List<SelectListItem>
-                                     {
-                                          new SelectListItem {Text = "Bi-weekly", Value = "Bi-weekly"},
-                                            new SelectListItem {Text = "Monthly", Value = "Monthly"},
-                                            new SelectListItem {Text = "Bi weekly Net 30", Value = "Bi weekly Net 30"},
-                                     }, "Select Payroll", new { @class = "form-control", @style = "width:200px; height:35px;" })
-                                @Html.ValidationMessage("Payroll", "", new { @style = "color:red" })
+                          
+                                        @Html.DropDownListFor(m => m.payroll, new SelectList(Model.Objpayroll, "Id", "Description", Model.payroll), "Select Payroll ", new { @class = "form-control", @style = "height:35px;" })
+                                        @Html.HiddenFor(m => m.payroll)
+                                    </div>
+                                </div>
 
                             </div>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         @*<div class="col-lg-3 offset-lg-1">
                 <div class="form-group">
@@ -253,12 +224,13 @@
                             <div class="form-group">
                                 <label>Business Name </label>
                                 @Html.TextBoxFor(m => m.business_name, new { @class = "form-control", maxlength = 50, @onkeypress = "return IsNumeric(event);" })
+                                @Html.ValidationMessageFor(m => m.business_name, "", new { @style = "color:red" })
                             </div>
                         </div>
                         <div class="col-lg-3 offset-lg-1">
                             <div class="form-group">
                                 <label>Business Contact name </label>
-                                @Html.TextBoxFor(m => m.business_contact_name, new { @class = "form-control", maxlength = 50 })
+                                @Html.TextBoxFor(m => m.business_contact_name, new { @class = "form-control", maxlength = 20 })
                             </div>
                         </div>
                         <div class="col-lg-3 offset-lg-1">
@@ -280,19 +252,22 @@
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
                                     <label>Annual Salary</label>
-                                    @Html.TextBoxFor(m => m.salary_or_hourly_rate, new { @class = "form-control", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.TextBoxFor(m => m.salary_or_hourly_rate, new { @class = "form-control", maxlength = 15, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.ValidationMessageFor(m => m.salary_or_hourly_rate, "", new { @style = "color:red" })
                                 </div>
                             </div>
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
                                     <label>Hourly Rate</label>
-                                    @Html.TextBoxFor(m => m.hourly_cost, new { @class = "form-control", maxlength = 14, OnBlur = "return Calculate_Cost()", onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.TextBoxFor(m => m.hourly_cost, new { @class = "form-control", maxlength = 10, OnBlur = "return Calculate_Cost()", onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.ValidationMessageFor(m => m.hourly_cost, "", new { @style = "color:red" })
+
                                 </div>
                             </div>
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
                                     <label>Overhead Percentage</label>
-                                    @Html.TextBoxFor(m => m.overhead_per, new { @class = "form-control", maxlength = 150, OnBlur = "return Calculate_Cost()", onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.TextBoxFor(m => m.overhead_per, new { @class = "form-control", maxlength = 3, OnBlur = "return Calculate_Cost()", onkeypress = "return validateFloatKeyPress(this,event);" })
                                 </div>
                             </div>
 
@@ -301,19 +276,19 @@
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
                                     <label>Overhead Cost</label>
-                                    @Html.TextBoxFor(m => m.over_head, new { @class = "form-control", maxlength = 150, OnBlur = "return Calculate_Cost()", onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.TextBoxFor(m => m.over_head, new { @class = "form-control", maxlength = 10, OnBlur = "return Calculate_Cost()", onkeypress = "return validateFloatKeyPress(this,event);" })
                                 </div>
                             </div>
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
                                     <label>Loaded Cost </label>
-                                    @Html.TextBoxFor(m => m.loaded_cost, new { @class = "form-control",@readonly = "readonly", disable = "disabled", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.TextBoxFor(m => m.loaded_cost, new { @class = "form-control",@readonly = "readonly", disable = "disabled", maxlength = 10, onkeypress = "return validateFloatKeyPress(this,event);" })
                                 </div>
                             </div>
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
-                                    <label>Medical</label>
-                                    @Html.TextBoxFor(m => m.medical, new { @class = "form-control", OnBlur = "return Calculate_Cost()", @onkeypress = "return IsNumeric(event);", maxlength = 14 })
+                                    <label>Medical(Hourly Cost)</label>
+                                    @Html.TextBoxFor(m => m.medical, new { @class = "form-control", OnBlur = "return Calculate_Cost()",maxlength = 10, onkeypress = "return validateFloatKeyPress(this,event);" })
                                 </div>
                             </div>
                         </div>
@@ -321,19 +296,19 @@
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
                                     <label>Sick Leave Cost</label>
-                                    @Html.TextBoxFor(m => m.sick_leave_cost, new { @class = "form-control", OnBlur = "return Calculate_Cost()", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.TextBoxFor(m => m.sick_leave_cost, new { @class = "form-control", OnBlur = "return Calculate_Cost()", maxlength = 10, onkeypress = "return validateFloatKeyPress(this,event);" })
                                 </div>
                             </div>
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
-                                    <label>Other Expenses</label>
-                                    @Html.TextBoxFor(m => m.other_expenses, new { @class = "form-control", OnBlur = "return Calculate_Cost()", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    <label>Other Expenses(Hourly Cost)</label>
+                                    @Html.TextBoxFor(m => m.other_expenses, new { @class = "form-control", OnBlur = "return Calculate_Cost()", maxlength = 10, onkeypress = "return validateFloatKeyPress(this,event);" })
                                 </div>
                             </div>
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
                                     <label>Total Cost</label>
-                                    @Html.TextBoxFor(m => m.total_cost, new { @class = "form-control",@readonly = "readonly", disable = "disabled", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.TextBoxFor(m => m.total_cost, new { @class = "form-control",@readonly = "readonly", disable = "disabled", maxlength = 15, onkeypress = "return validateFloatKeyPress(this,event);" })
                                 </div>
                             </div>
 
@@ -356,20 +331,21 @@
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
                                     <label>Bill Rate </label>
-                                    @Html.TextBoxFor(m => m.bill_rate, new { @class = "form-control", OnBlur = "return Calculate_Cost()", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.TextBoxFor(m => m.bill_rate, new { @class = "form-control", OnBlur = "return Calculate_Cost()", maxlength = 10, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.ValidationMessageFor(m => m.bill_rate, "", new { @style = "color:red" })
                                 </div>
                             </div>
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
                                     <label>Gross Margin</label>
-                                    @Html.TextBoxFor(m => m.gross_margin, new { @class = "form-control",@readonly = "readonly", maxlength = 14, onkeypress = "return validateFloatKeyPress(this,event);" })
+                                    @Html.TextBoxFor(m => m.gross_margin, new { @class = "form-control",@readonly = "readonly", maxlength = 15, onkeypress = "return validateFloatKeyPress(this,event);" })
                                 </div>
                             </div>
 
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
                                     <label>Total SOW Value </label>
-                                    @Html.TextBoxFor(m => m.total_sow_value, new { @class = "form-control", maxlength = 50 })
+                                    @Html.TextBoxFor(m => m.total_sow_value, new { @class = "form-control", maxlength = 10 })
                                 </div>
                             </div>
                         </div>
@@ -378,20 +354,29 @@
                                 <div class="form-group">
                                     <label>PO </label>
                                     @Html.TextBoxFor(m => m.po, new { @class = "form-control", @onkeypress = "return IsNumeric(event);", maxlength = 14 })
+                            
                                 </div>
                             </div>
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
                                     <label>PO Effective Date </label>
                                     @Html.TextBoxFor(m => m.po_effective_date, "{0:MM/dd/yyyy}", new { @class = "form-control", @style = "height:35px;", autocomplete = "off" })
+
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Add comments </label>
+                                    @Html.TextAreaFor(m => m.add_comment, new { @class = "form-control", @style = "height:100px;", autocomplete = "off" , maxlength = 500})
+
                                 </div>
                             </div>
                         </div>
                     }
                     <div class="tile-footer">
                         <div class="row">
-                            <div class="col-md-8 col-md-offset-3">
-                                <a class="btn btn-primary" href="/Roster/RosterDetails"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add New</a>
+                            <div class="col-md-8 col-md-offset-3" style="margin-left:80px;">
+                             @*   <a class="btn btn-primary"  href="/Roster/RosterDetails"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add New</a>*@
                                 <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save</button>
                             </div>
                         </div>
@@ -431,30 +416,65 @@
             });
 
             $("#po_effective_date").datepicker({
-                numberOfMonths: 1,
-                onSelect: function (selected) {
-                    var dt = new Date(selected);
-                    dt.setDate(dt.getDate() + 1);
-                    $("#po_effective_date").datepicker("option", "minDate", dt);
-                }
+               
             });
         });
         $(document).ready(function () {
-            $("#employment_basis").change(function () {
-                var selectedValue = $(this).val();
+
+            $("#immigration_status").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Roster/GetDropDowndataforBind/",
+                        type: "POST",
+                        dataType: "json",
+                        data: "{ 'search_with_name': '" + request.term + "','dropdown_id': 'immigration_status'}",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data,
+                                function (item) {
+                                    return { label: item.immigration_status, value: item.immigration_status };
+                                }))
+                        }
+                    })
+                },
+            });
+
+            $("#employment_basis").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/Roster/GetDropDowndataforBind/",
+                        type: "POST",
+                        dataType: "json",
+                        data: "{ 'search_with_name': '" + request.term + "','dropdown_id': 'employment_basis'}",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            response($.map(data,
+                                function (item) {
+                                    return { label: item.employment_basis, value: item.employment_basis };
+                                }))
+                        }
+                    })
+                },
+                change: function (event, ui) {
+                    SaveData(ui.item.value);
+                }
+            });
+
+            function SaveData(selectedValue) {
                 if (selectedValue == 'Annual W2' || selectedValue == 'Hourly W2') {
-                   
                     $('#overhead_per').val(15);
-                    $('#over_head').val(0);
+                    $('#over_head').val(10);
                     Calculate_Cost();
                 }
                 else {
-                  
+                    //alert("hi");
                     $('#overhead_per').val(0);
                     $('#over_head').val("10.00");
                     Calculate_Cost();
                 }
-            });
+            }
+
+            
             $("#expenses_applicable").change(function () {
                 var selectedValue = $(this).val();
                 var remote = $('#remote').val();
@@ -494,11 +514,11 @@
                     EmployeeId: EmployeeId.val(),
                 }),
                 success: function (result) {
-
+                    ClearRosterDetails();
                     if (result != "") {
                         if (confirm('Do you want to copy Previous Roster Details of Employee?')) {
                             for (var x = 0; x < result.length; x++) {
-                                ClearRosterDetails();
+                               
                                 $('#immigration_status').val(result[x].immigration_status);
                                 $('#employment_basis').val(result[x].employment_basis);
                                 $('#billable').val(result[x].billable);
@@ -509,8 +529,8 @@
                                 $('#continuity_with_us').val(result[x].continuity_with_us);
                                 $('#Remote').val(result[x].Remote);
                                 $('#expenses_applicable').val(result[x].expenses_applicable);
-                                $('#exp_weekly_monthly').val(result[x].exp_weekly_monthly);
-                                $('#Payroll').val(result[x].Payroll);
+                                $('#exp_weekly_monthly').val(result[x].exp_weekly_monthly_id);
+                                $('#payroll').val(result[x].payroll_id);
                                 $('#continuity_with_us').val(result[x].continuity_with_us);
                                 $('#Remote').val(result[x].Remote);
                                 $('#business_name').val(result[x].business_name);
@@ -526,10 +546,13 @@
                                 $('#bill_rate').val(result[x].bill_rate);
                                 $('#gross_margin').val(result[x].gross_margin);
                                 $('#po').val(result[x].po);
-                                $('#total_sow_value').val(result[x].total_sow_value);
+                                 $('#total_sow_value').val(result[x].total_sow_value);
                                 $('#sick_leave_cost').val(result[x].sick_leave_cost);
                                 $('#vendor').val(result[x].vendor);
-                                $('#po_effective_date').val(result[x].po_effective_date);
+                                $('#add_comment').val(result[x].add_comment);
+                                var podate = ToJavaScriptDate(result[x].po_effective_date);
+                                $('#po_effective_date').val(podate);
+                        
                             }
                         } else {
                             ClearRosterDetails();
@@ -548,7 +571,7 @@
         });
 
         function ClearRosterDetails() {
-            $('#roster_id').val("");
+          //  $('#roster_id').val("");
             $('#immigration_status').val("");
             $('#employment_basis').val("");
             $('#billable').val("NB");
@@ -582,28 +605,60 @@
             $('#gross_margin').val("0");
             $('#po').val("");
             $('#total_sow_value').val("0");
+            $('#add_comment').val("");
+        }
+        function ToJavaScriptDate(value) {
+            var pattern = /Date\(([^)]+)\)/;
+            var results = pattern.exec(value);
+            var dt = new Date(parseFloat(results[1]));
+            return (dt.getMonth() + 1) + "/" + dt.getDate() + "/" + dt.getFullYear();
         }
         function Calculate_Cost() {
             var over_head = parseFloat($("#over_head").val());
+            if (isNaN(over_head)) over_head = 0.00;
             var overhead_per = parseFloat($("#overhead_per").val());
+            if (isNaN(overhead_per)) overhead_per = 0.00;
             var hourly_cost = parseFloat($("#hourly_cost").val());
+            if (isNaN(hourly_cost)) hourly_cost = 0.00;
             var overheadPerval = parseFloat(hourly_cost) * (parseFloat(overhead_per) / 100);
             var loaded = parseFloat(hourly_cost) + parseFloat(over_head) + parseFloat(overheadPerval);
+            loaded = toFixed(loaded);
             var mecal = parseFloat($("#medical").val());
+            if (isNaN(mecal)) mecal = 0.00;
             var sickleave = parseFloat($("#sick_leave_cost").val());
+            if (isNaN(sickleave)) sickleave = 0.00;
             var otherexp = parseFloat($("#other_expenses").val());
+            if (isNaN(otherexp)) otherexp = 0.00;
             var totalcost = parseFloat(loaded) + parseFloat(mecal) + parseFloat(otherexp) + parseFloat(sickleave);
+            totalcost = toFixed(totalcost);
             var billrate = parseFloat($("#bill_rate").val());
+            if (isNaN(billrate)) billrate = 0.00;
             var totalcostval = parseFloat(totalcost);
             var gross = parseFloat(billrate) - parseFloat(totalcostval);
+            gross = toFixed(gross);
             $("#loaded_cost").val(loaded);
             $("#total_cost").val(totalcost);
             $("#gross_margin").val(gross);
         }
+        function toFixed(x) {
+            if (Math.abs(x) < 1.0) {
+                var e = parseFloat(x.toString().split('e-')[1]);
+                if (e) {
+                    x *= Math.pow(10, e - 1);
+                    x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+                }
+            } else {
+                var e = parseFloat(x.toString().split('+')[1]);
+                if (e > 20) {
+                    e -= 20;
+                    x /= Math.pow(10, e);
+                    x += (new Array(e + 1)).join('0');
+                }
+            }
+            return x;
+        }
 
-
-
-    
+                     
     </script>
 
     

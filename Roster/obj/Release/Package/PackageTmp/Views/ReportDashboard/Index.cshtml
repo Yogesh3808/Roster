@@ -1,0 +1,99 @@
+﻿@model List<Roster.RosterDLL.SP_ReportList_Result>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layoutpage.cshtml";
+}
+<div class="app-content" style="margin-top:70px;">
+
+    <div class="app-title">
+        <div>
+            <h1>Report Details</h1>
+        </div>
+    </div>
+    @if (Model != null && Model.Count > 0)
+    {
+        <div class="row">
+            <div class="clearfix"></div>
+            <div class="col-md-12">
+                <div class="tile">
+                    <div class="form-group row table-responsive">
+                        <div class="col-md-12">
+                            <div id="new-search-area"></div>
+                        </div>
+
+                        <table class="table table-hover table-bordered " id="sampleTable">
+                            <thead>
+                                <tr>
+                                    <th>Report Name</th>
+                                    <th>Description</th>
+                                
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                <tr>
+                                    <td><a href="~/ReportDashboard/ReportCount?report_id=@item.ID&ReportName=@item.report_name" style="font-weight:800;">@item.report_name</a></td>
+                                    <td>@item.description </td>
+                                </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    }
+    </div>
+
+
+
+@section js{
+    <style>
+        .inputdisabled {
+            background-color: #e9ecef;
+            opacity: 1
+        }
+
+        #new-search-area {
+            width: 100%;
+            clear: both;
+            /*padding-top: 20px;
+            padding-bottom: 20px;*/
+        }
+
+            #new-search-area input {
+                display: block;
+                width: 700px;
+                padding: 0.375rem 0.75rem;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                color: #495057;
+                background-color: #FFF;
+                background-clip: padding-box;
+                border: 2px solid #ced4da;
+                border-radius: 4px;
+                -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+            }
+    </style>
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="~/Template/js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Template/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#sampleTable').DataTable(
+            {
+                //"bInfo": false,
+                //"bLengthChange": false,
+                //initComplete : function() {
+                //    $("#sampleTable_filter").detach().appendTo('#new-search-area');
+                //}
+            });
+    </script>
+    <script src="~/Scripts/CustomFunction.js"></script>
+}
+

@@ -11,7 +11,7 @@
     <meta property="og:url" content="http://pratikborsadiya.in/blog/vali-admin">
     <meta property="og:image" content="http://pratikborsadiya.in/blog/vali-admin/hero-social.png">
     <meta property="og:description" content="Vali is a responsive and free admin theme built with Bootstrap 4, SASS and PUG.js. It's fully customizable and modular.">
-    <title>Roster System</title>
+    <title>Devcool Roster</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,22 +33,24 @@
                 <!-- Sidebar toggle button--><a class="app-sidebar__toggle" href="#" data-toggle="sidebar" aria-label="Hide Sidebar" style="padding: 15px 10px;"></a>
                 <!-- Navbar Right Menu-->
 
-                <ul class="app-nav" style="padding: 15px 10px;">
-                    <li class="dropdown">
-                        @if (!string.IsNullOrEmpty(Session["UserName"].ToString()))
-                        {
-                            <a class="app-nav__item" href="#" data-toggle="dropdown" aria-label="Open Profile Menu">
-                                @Session["UserName"]
-                                <i class="fa fa-user fa-lg"></i>
-                            </a>
-                            <ul class="dropdown-menu settings-menu dropdown-menu-right">
-                                <li><a class="dropdown-item" href="/Manage/AfterLoginChangePassword"><i class="fa fa-cog fa-lg"></i>Change Password</a></li>
-                                <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
-                            </ul>
-                        }
-                    </li>
+                                             <ul class="app-nav" style="padding: 15px 10px;">
+                                                 <a style="font-size:18px; font-family:calibri; float:left; padding-top:10px; color:white; font-weight:bold;">@Session["UserName"]</a>
+                                                 <li class="dropdown" >
+                                                     @if (!string.IsNullOrEmpty(Session["UserName"].ToString()))
+                                                     {
 
-                </ul>
+                                                         <a class="app-nav__item" href="#" data-toggle="dropdown" style="margin-top:2px;" aria-label="Open Profile Menu">
+
+                                                             <i class="fa fa-user fa-lg"></i>
+                                                         </a>
+                                                         <ul class="dropdown-menu settings-menu dropdown-menu-right" style="margin-top:15px;">
+                                                             <li><a class="dropdown-item" href="/Manage/AfterLoginChangePassword"><i class="fa fa-cog fa-lg"></i>Change Password</a></li>
+                                                             <li><a class="dropdown-item" href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+                                                         </ul>
+                                                     }
+                                                 </li>
+
+                                             </ul>
               
             </header>
         }
@@ -63,23 +65,23 @@
 
                         <li class="treeview">
                             <a class="app-menu__item" href="/Account/RegisterUser">
-                                <i class="app-menu__icon fa fa-laptop">
+                                <i class="app-menu__icon fa fa-user ">
 
-                                </i><span class="app-menu__label">Create User</span><i class="treeview-indicator fa fa-angle-right"></i>
+                                </i><span class="app-menu__label">User Management</span><i class="treeview-indicator fa fa-angle-right"></i>
                             </a>
 
                         </li>
                         <li class="treeview">
                             <a class="app-menu__item" href="/Employee/EmployeeDetails">
-                                <i class="app-menu__icon fa fa-laptop">
+                                <i class="app-menu__icon fa fa-file-text">
 
-                                </i><span class="app-menu__label">Create Employee</span><i class="treeview-indicator fa fa-angle-right"></i>
+                                </i><span class="app-menu__label">Manage Employee</span><i class="treeview-indicator fa fa-angle-right"></i>
                             </a>
 
                         </li>
                         <li class="treeview">
                             <a class="app-menu__item" href="/Roster/RosterDetails">
-                                <i class="app-menu__icon fa fa-laptop">
+                                <i class="app-menu__icon fa fa-edit">
 
                                 </i><span class="app-menu__label"> Create Employee Details </span><i class="treeview-indicator fa fa-angle-right"></i>
                             </a>
@@ -87,11 +89,17 @@
                         </li>
                         <li class="treeview">
                             <a class="app-menu__item" href="/Roster/Index">
-                                <i class="app-menu__icon fa fa-laptop">
+                                <i class="app-menu__icon fa fa-eye">
 
                                 </i><span class="app-menu__label">Roster Details</span><i class="treeview-indicator fa fa-angle-right"></i>
                             </a>
 
+                        </li>
+                        <li class="treeview">
+                            <a class="app-menu__item" href="/ReportDashboard/Index">
+                                <i class="app-menu__icon fa fa-check ">
+                                </i><span class="app-menu__label">Reports</span><i class="treeview-indicator fa fa-angle-right"></i>
+                            </a>
                         </li>
                     </ul>
                 }
@@ -102,7 +110,7 @@
 
                         <li class="treeview">
                             <a class="app-menu__item" href="/Employee/EmployeeDetails">
-                                <i class="app-menu__icon fa fa-laptop">
+                                <i class="glyphicon glyphicon-user">
 
                                 </i><span class="app-menu__label">Create Employee</span><i class="treeview-indicator fa fa-angle-right"></i>
                             </a>
@@ -110,7 +118,7 @@
                         </li>
                         <li class="treeview">
                             <a class="app-menu__item" href="/Roster/RosterDetails">
-                                <i class="app-menu__icon fa fa-laptop">
+                                <i class="#">
 
                                 </i><span class="app-menu__label"> Create Employee Details </span><i class="treeview-indicator fa fa-angle-right"></i>
                             </a>
@@ -126,9 +134,12 @@
                         </li>
                     </ul>
                 }
-                else if (Convert.ToInt32(Session["MemberRole"]) == 3)
+                else if (Convert.ToInt32(Session["MemberRole"]) == 3 || Convert.ToInt32(Session["MemberRole"]) == 4 || Convert.ToInt32(Session["MemberRole"]) == 5)
                 {
                     <ul class="app-menu">
+
+
+                       
                         <li class="treeview">
                             <a class="app-menu__item" href="/Roster/Index">
                                 <i class="app-menu__icon fa fa-laptop">
@@ -139,6 +150,7 @@
                         </li>
                     </ul>
                 }
+
             </aside>
 
             <!-- Essential javascripts for application to work-->

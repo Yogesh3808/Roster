@@ -98,7 +98,7 @@
                                     <table id="tblCommissionDts" class="table table-hover table-bordered" style="width: 160%;">
                                         <thead style="background-color: #0912f3; color: white; line-height: 1.00;">
                                             <tr>
-                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1)
+                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1 || Convert.ToInt32(Session["MemberRole"]) == 2)
                                                 {
                                                     <th>Edit</th>
                                                 }
@@ -129,7 +129,7 @@
                                                 {
                                                     <th>Bill Rate</th>
                                                 }
-                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1)
+                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1 || Convert.ToInt32(Session["MemberRole"]) == 2)
                                                 {
                                                     <th>Salary</th>
                                                     <th>Hourly Rate</th>
@@ -152,7 +152,7 @@
                                             @foreach (var item in Model)
                                             {
                                             <tr>
-                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1)
+                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1  || Convert.ToInt32(Session["MemberRole"]) == 2)
                                                 {
                                                     <td><a href="~/Roster/GetRosterbyId?roster_id=@item.roster_id" class="fa fa-edit"></a></td>
                                                 }
@@ -194,7 +194,7 @@
                                                         {@($"{@item.bill_rate:0.00}")}
                                                     </td>
                                                 }
-                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1)
+                                                @if (Convert.ToInt32(Session["MemberRole"]) == 1 || Convert.ToInt32(Session["MemberRole"]) == 2)
                                                 {
                                                     <td>
                                                         @if (@item.salary_or_hourly_rate != null)

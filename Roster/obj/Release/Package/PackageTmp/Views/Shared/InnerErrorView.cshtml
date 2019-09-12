@@ -1,0 +1,16 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+@{
+    ViewBag.Title = "ErrorView";
+    Layout = "~/Views/Shared/_Layoutpage.cshtml";
+}
+
+@*<div class="app sidebar-mini rtl">
+    <div class="app-contentError">*@
+        <div class="page-error tile">
+            <h1><i class="fa fa-exclamation-circle"></i> <strong>Oops!</strong> @TempData["ErrorMessage"]</h1>
+            
+            <p><b>:</b></p>
+            <p><a class="btn btn-primary" href="javascript:history.back()">Take Me Back</a></p>
+        </div>
+    @*</div>
+</div>*@

@@ -1,4 +1,11 @@
-﻿using RosterSystem.Repository;
+﻿using Roster.RosterDLL;
+using RosterSystem.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Web;
 using System.Web.Mvc;
 
 namespace Roster.Filter
@@ -10,18 +17,18 @@ namespace Roster.Filter
         {
             if (filterContext.Exception != null)
             {
-                //ExceptionLogging logger = new ExceptionLogging()
-                //{
-                //    ExceptionMessage = filterContext.Exception.Message,
-                //    ExceptionStackTrace = filterContext.Exception.StackTrace,
-                //    ControllerName = filterContext.RouteData.Values["controller"].ToString(),
-                //    ActionName = filterContext.RouteData.Values["action"].ToString(),
-                //    UserIP = filterContext.HttpContext.Request.UserHostAddress,
-                //    UserId = Convert.ToInt32(HttpContext.Current.Session["UserId"]),
-                //    LogTime = DateTime.Now
-                //};
-                //UnitOfWork.GetRepositoryInstance<ExceptionLogging>().Add(logger);
-                //filterContext.ExceptionHandled = true;
+                ExceptionLogging logger = new ExceptionLogging()
+                {
+                    ExceptionMessage = filterContext.Exception.Message,
+                    ExceptionStackTrace = filterContext.Exception.StackTrace,
+                    ControllerName = filterContext.RouteData.Values["controller"].ToString(),
+                    ActionName = filterContext.RouteData.Values["action"].ToString(),
+                    UserIP = filterContext.HttpContext.Request.UserHostAddress,
+                    UserId = Convert.ToInt32(HttpContext.Current.Session["UserId"]),
+                    LogTime = DateTime.Now
+                };
+                UnitOfWork.GetRepositoryInstance<ExceptionLogging>().Add(logger);
+                filterContext.ExceptionHandled = true;
                 //AuditLogFile.WriteAuditLog("ErrorMsg=" + filterContext.Exception.Message + " ControlerName=" + filterContext.RouteData.Values["controller"].ToString() + " .:" + DateTime.Now);
 
                 //filterContext.HttpContext.Response.Clear();
@@ -32,6 +39,7 @@ namespace Roster.Filter
                 {
                     ViewName = "InnerErrorView",
                 };
+              
 
             }
         }

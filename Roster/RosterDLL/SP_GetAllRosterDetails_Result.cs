@@ -50,5 +50,10 @@ namespace Roster.RosterDLL
         public Nullable<bool> vendor { get; set; }
         public Nullable<double> sick_leave_cost { get; set; }
         public Nullable<System.DateTime> po_effective_date { get; set; }
+        public Nullable<int> immigration_status_id { get; set; }
+        public Nullable<int> employment_basis_id { get; set; }
+        public Nullable<int> payroll_id { get; set; }
+        public Nullable<int> exp_weekly_monthly_id { get; set; }
+        public int employee_id { get; set; }
     }
 }

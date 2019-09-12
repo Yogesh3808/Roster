@@ -1,0 +1,99 @@
+﻿@model Roster.Models.ReportViewModels
+
+@{
+    ViewBag.Title = "Report";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+
+<div class="app-content" style="margin-top:70px;">
+    <div class="app-title">
+        <div>
+            <h1><i class="fa fa-edit"></i>Report</h1>
+        </div>
+    </div>
+    @using (Html.BeginForm("EmployeeDetailbyCustomerReport", "Report", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-md-12">
+                <div class="tile">
+                  
+                    
+                    <div class="tile-body">
+                        <form class="form-horizontal">
+                            @Html.ValidationSummary("", new { @class = "text-danger" })
+                            <div class="form-group row">
+                                <label class="control-label col-md-1">Client<span class="star">*</span></label>
+                                <div class="col-md-3">
+                                    @Html.DropDownListFor(m => m.Client, new SelectList(Model.Clientlist, "Client", "Client", Model.Clientlist),  new { @class = "form-control" })
+                                </div>
+                                <label class="control-label col-md-1">Billable<span class="star">*</span></label>
+                                <div class="col-md-3">
+                                    @Html.DropDownList("billable", new List<SelectListItem>
+                                    {
+                                     new SelectListItem {Text = "All", Value = "A"},
+                                        new SelectListItem {Text = "B", Value = "B"},
+                                        new SelectListItem {Text = "NB", Value = "NB"},
+                                        new SelectListItem {Text = "Ter", Value = "Ter"},
+                                    },  new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                    @Html.ValidationMessage("billable", "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    
+                    <div class="tile-footer">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-3">
+                                <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>View</button>
+                                <p style="color:red"> @Html.Raw(TempData["msg"])</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        if (Model.ObjEmployeeDetailbyCustomerList.Count > 0)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tile">
+                        <div class="tile-body">
+                            <div id='test' style="overflow-x:scroll;height:auto; width:100%; overflow: -moz-scrollbars-horizontal; ">
+                                <table class="table table-hover table-bordered " id="sampleTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Client</th>
+                                            <th>Contract Start Date</th>
+                                            <th>Contract End Date</th>
+                                            <th>Manage Name</th>
+                                            <th>Billable</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ObjEmployeeDetailbyCustomerList)
+                                        {
+                                        <tr>
+                                            <td>@item.employeename</td>
+                                            <td>@item.client</td>
+                                            <td>@item.contract_start_date</td>
+                                            <td>@item.contract_end_date</td>
+                                            <td>@item.client_manager_name</td>
+                                            <td>@item.billable</td>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    
+</div>
+

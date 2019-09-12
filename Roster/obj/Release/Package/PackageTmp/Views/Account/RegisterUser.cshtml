@@ -6,7 +6,7 @@
 <div class="app-content" style="margin-top:70px;">
     <div class="app-title">
         <div>
-            <h1>Create User</h1>
+            <h1>User Management</h1>
         </div>
     </div>
     @using (Html.BeginForm("RegisterUser", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -18,11 +18,11 @@
                 <div class="tile">
                     <div class="tile-body">
                         <form class="form-horizontal">
-                            @Html.ValidationSummary("", new { @class = "text-danger" })
+
                             <div class="form-group row">
                                 <label class="control-label col-md-1">First Name<span class="star">*</span></label>
                                 <div class="col-md-3">
-                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control",maxlength=20, @placeholder = "First Name", @onkeypress = "return alphaOnly(event);" })
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", maxlength = 20, @placeholder = "First Name", @onkeypress = "return alphaOnly(event);" })
                                     @Html.ValidationMessageFor(m => m.FirstName, "", new { @style = "color:red" })
                                 </div>
                                 <label class="control-label col-md-1">Last Name<span class="star">*</span></label>
@@ -57,7 +57,7 @@
                                 <label class="control-label col-md-1">User Role<span class="star">*</span></label>
                                 <div class="col-md-3">
                                     @Html.DropDownListFor(m => m.user_role, new SelectList(Model.rolelist, "user_role", "user_role_description", Model.rolelist), "Select Role", new { @class = "form-control" })
-                                    @Html.ValidationMessageFor(m => m.rolelist, "", new { @style = "color:red" })
+                                    @Html.ValidationMessageFor(m => m.user_role, "", new { @style = "color:red" })
                                 </div>
                             </div>
                         </form>
@@ -65,8 +65,8 @@
                     <div class="tile-footer">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-3">
-                                <a class="btn btn-primary" href="/Account/RegisterUser" style="background-color:#0912f3;"><i class="fa fa-fw fa-lg fa-check-circle"></i>New</a>
-                                <button class="btn btn-primary" style="background-color:#0912f3;" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Register</button>
+                                <a class="btn btn-primary" href="/Account/RegisterUser" style="background-color:#0912f3;"><i class="fa fa-fw fa-lg fa-check-circle"></i>Create New User</a>
+                                <button class="btn btn-primary" style="background-color:#0912f3;" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save</button>
                             </div>
                         </div>
                     </div>

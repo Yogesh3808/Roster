@@ -10,12 +10,14 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Roster.Filter;
 using Roster.Models;
 using Roster.RosterDLL;
 using RosterSystem.Repository;
 
 namespace Roster.Controllers
-{ 
+{
+  
     public class AccountController : Controller
     {
         RosterEntities db = new RosterEntities();
@@ -41,13 +43,14 @@ namespace Roster.Controllers
         public AccountController()
         {
         }
-
+        [ValidateUserSession]
+        [ActionFilter]
         public ActionResult RegisterUser()
         {
             ObjRejister.rolelist = _entities.SP_RoleList().ToList();
             ObjRejister.ObjUserList = _entities.SP_UserList().ToList();
             // return View(ObjRejister);
-            return View("RegisterUser", ObjRejister);
+                   return View("RegisterUser", ObjRejister);
         }
         // POST: /Account/Register
         [HttpPost]
@@ -57,15 +60,22 @@ namespace Roster.Controllers
         {
             if (ModelState.IsValid)
             {
+                var EmailIDExist = UnitOfWork.GetRepositoryInstance<AspNetUser>().GetAllRecordsIQueryable().Where(i => i.Email == model.Email.Trim() && i.Id != model.Id).Count();
+                if (EmailIDExist != 0)
+                {
+                    ModelState.AddModelError("Email", "Email ID is already used");
+                }
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email, FirstName = model.FirstName, Lastname = model.LastName, User_Role = model.user_role };
                 if (model.Id == null)
                 {
-                    var password1 = model.FirstName + '@' + 1234;
+                    var password1 = FirstCharToUpper(model.FirstName) + '@' + 1234;
                     var result = await UserManager.CreateAsync(user, password1);
                     if (result.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        var SendMail = db.SP_UserMailTrigger(user.Id, password1);
                         TempData["msg3"] = "<script language='javascript' type='text/javascript'>alert('User Registered Successfully!');</script>";
+                        return RedirectToAction("RegisterUser", "Account");
                     }
                 }
                 else
@@ -80,6 +90,7 @@ namespace Roster.Controllers
                     if (result.Succeeded)
                     {
                         TempData["msg3"] = "<script language='javascript' type='text/javascript'>alert('Changes Saved Successfully.');</script>";
+                       
                     }
                     AddErrors(result);
                 }
@@ -90,6 +101,32 @@ namespace Roster.Controllers
             model.rolelist = _entities.SP_RoleList().ToList();
             model.ObjUserList = _entities.SP_UserList().ToList();
             return View(model);
+           
+        }
+        public static string FirstCharToUpper(string value)
+        {
+            char[] array = value.ToCharArray();
+            // Handle the first letter in the string.
+            if (array.Length >= 1)
+            {
+                if (char.IsLower(array[0]))
+                {
+                    array[0] = char.ToUpper(array[0]);
+                }
+            }
+            // Scan through the letters, checking for spaces.
+            // ... Uppercase the lowercase letters following spaces.
+            for (int i = 1; i < array.Length; i++)
+            {
+                if (array[i - 1] == ' ')
+                {
+                    if (char.IsLower(array[i]))
+                    {
+                        array[i] = char.ToUpper(array[i]);
+                    }
+                }
+            }
+            return new string(array);
         }
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
         {
@@ -160,6 +197,7 @@ namespace Roster.Controllers
                     case SignInStatus.Failure:
                     default:
                         ModelState.AddModelError("", "Invalid login attempt.");
+                        TempData["msg"] = "You have entered an invalid password";
                         return View(model);
                 }
             }
@@ -503,6 +541,7 @@ namespace Roster.Controllers
                 }
                 objRegisterDataModel.ObjUserList = _entities.SP_UserList().ToList();
                 return View("RegisterUser", objRegisterDataModel);
+                
             }
             catch (Exception ex)
             {
@@ -532,7 +571,7 @@ namespace Roster.Controllers
 
         private ActionResult RedirectToLocal(string returnUrl)
         {
-            return Redirect("/Roster/index");
+            return Redirect("/Roster/Index");
             //if (Url.IsLocalUrl(returnUrl))
             //{
             //    return Redirect(returnUrl);
@@ -599,7 +638,8 @@ namespace Roster.Controllers
                 }
                 await userManager.RemovePasswordAsync(user.Id);
                 await userManager.AddPasswordAsync(user.Id, model.Password);
-                ModelState.AddModelError("Email", "Your Password is Successfull !");
+                //ModelState.AddModelError("Email", "Your Password is Successfull !");
+                TempData["msg"] = "Your Password is Change Successfully";
                 return View(model);
             }
             // If we got this far, something failed, redisplay form

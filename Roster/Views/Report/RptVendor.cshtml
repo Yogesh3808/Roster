@@ -1,0 +1,194 @@
+﻿@model Roster.Models.ReportViewModels
+@{
+    ViewBag.Title = "List of Vendor";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<div class="app-content" style="margin-top:70px;">
+    <div class="app-title">
+        <div>
+            <h1>List of Vendor</h1>
+        </div>
+    </div>
+    @using (Html.BeginForm("RptVendor", "Report", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="row">
+            <div class="col-md-12">
+                <div style="height:110px;" class="tile">
+                    <div class="tile-body">
+                        <div class="row" style="padding-bottom:100px;">
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Vendor(Y\N)</label>
+
+                                    @Html.DropDownList("is_vendor", new List<SelectListItem>
+                                    {
+                                        new SelectListItem {Text = "Y", Value = "True"},
+                                        new SelectListItem {Text = "N", Value = "False"},
+                                    }, "Select Vendor", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                    @Html.ValidationMessage("is_vendor", "", new { @style = "color:red" })
+
+
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>Business Name</label>
+
+                                    @Html.DropDownListFor(m => m.business_name, new SelectList(Model.Vendorlist, "business_name", "business_name", Model.Vendorlist), new { @class = "form-control" })
+
+
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1" style="margin-top:25px;">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>View</button>
+                                    <p style="color:red"> @Html.Raw(TempData["msg"])</p>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    @if (Model.ObjVendorList.Count > 0)
+    {
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tile">
+                        <div class="tile-body">
+                            @using (Html.BeginForm("ExportVenderDetails", "Report", FormMethod.Post))
+                            {
+                                <div>
+                                    <button class="btn btn-success" type="submit" id="btnExport"><i class="fa fa-fw fa-lg fa-check-circle"></i>Export To Excel</button>
+                                </div>
+                            }
+                            <br />
+                            <div class="form-group row table-responsive">
+                                <div class="col-md-12">
+                                    <div id="new-search-area"></div>
+                                </div>
+
+                                <table class="table table-hover table-bordered " id="sampleTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Business Name</th>
+                                            <th>Employee Name</th>
+                                            <th>Client Name</th>
+                                            <th>Contract Start Date</th>
+                                            <th>Contract End Date</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ObjVendorList)
+                                        {
+                                            <tr>
+                                                <td>@item.business_name</td>
+                                                <td>@item.employeename</td>
+                                                <td>@item.client</td>
+                                                <td>@item.contract_start_date</td>
+                                                <td>@item.contract_end_date</td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+    }
+
+</div>
+@section js{
+    <style>
+
+        .inputdisabled {
+            background-color: #e9ecef;
+            opacity: 1
+        }
+
+        #new-search-area {
+            width: 100%;
+            clear: both;
+            /*padding-top: 20px;
+            padding-bottom: 20px;*/
+        }
+
+            #new-search-area input {
+                display: block;
+                width: 700px;
+                padding: 0.375rem 0.75rem;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                color: #495057;
+                background-color: #FFF;
+                background-clip: padding-box;
+                border: 2px solid #ced4da;
+                border-radius: 4px;
+                -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+            }
+    </style>
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="~/Template/js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Template/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#sampleTable').DataTable(
+            {
+                //"bInfo": false,
+                //"bLengthChange": false,
+                //initComplete : function() {
+                //    $("#sampleTable_filter").detach().appendTo('#new-search-area');
+                //}
+            });</script>
+    <script src="~/Scripts/CustomFunction.js"></script>
+
+    <script>
+
+        $("#btnExport").click(function (e) {
+            var tab_text = " <div style='width:20%; margin-left:300px; font-size: 200%; font-weight: bold; color:#357ebd;'>List of Vendor</div><br></br><table border='4px'><tr style='background-color:#1F618D; color:white;'>";
+            var textRange; var j = 0;
+            tab = document.getElementById('sampleTable'); // id of table
+            for (j = 0; j < tab.rows.length; j++) {
+                tab_text = tab_text + tab.rows[j].innerHTML + "</tr>";
+            }
+            tab_text = tab_text + "</table> <br></br> <div style='color:#1F618D; font:Bold; margin-left:150px;font-size: 120%;'></div><div style='color:#1F618D; font-size: 120%; font:Bold; margin-left:150px;'> </div><div style='color:#1F618D; font:Bold; font-size: 120%; margin-left:150px;'></div>";
+            tab_text = tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+            tab_text = tab_text.replace(/<img[^>]*>/gi, ""); // remove if u want images in your table
+            tab_text = tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+            var ua = window.navigator.userAgent;
+            var msie = ua.indexOf("MSIE ");
+            if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./))      // If Internet Explorer
+            {
+                txtArea1.document.open("txt/html", "replace");
+                txtArea1.document.write(tab_text);
+                txtArea1.document.close();
+                txtArea1.focus();
+                sa = txtArea1.document.execCommand("SaveAs", true, "Say Thanks to Sumit.xls");
+            }
+            else                 //other browser not tested on IE 11
+                sa = ('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+            var link = document.createElement("a");
+            link.download = "List of Vendor.xls";
+            link.href = sa;
+            link.click();
+            return (link);
+            return (sa);
+        });
+    </script>
+}

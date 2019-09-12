@@ -81,7 +81,11 @@ namespace Roster.Models
         //[Display(Name = "Confirm password")]
         //[System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "The User Role field is required")]
         public int user_role { get; set; }
+        
+        public string user_name { get; set; }
         public List<SP_RoleList_Result> rolelist { get; set; }
         //public System.Web.Mvc.SelectList rolelist { get; set; }
         public List<SP_UserList_Result> ObjUserList { get; set; }

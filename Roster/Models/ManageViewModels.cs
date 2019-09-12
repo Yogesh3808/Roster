@@ -42,7 +42,7 @@ namespace Roster.Models
         [Required(ErrorMessage = "Please Enter New Password")]
         [DataType(DataType.Password)]
         [StringLength(32, ErrorMessage = "Minimum {2} and Maximum {1} characters are allowed", MinimumLength = 8)]
-        [RegularExpression(@"^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@!#$%^&?])[A-Za-z\d@!#$%^&?]{8,32}", ErrorMessage = "Please Check Password Criteria !")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@!#$%^&*?])[A-Za-z\d@!#$%^&*?]{8,32}", ErrorMessage = "Please Check Password Criteria !")]
         public string NewPassword { get; set; }
         [DataType(DataType.Password)]
         [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessage = "Password doesn't match")]

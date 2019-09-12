@@ -58,37 +58,17 @@
                         <div class="col-lg-3 offset-lg-1">
                             <div class="form-group">
                                 <label>Immigration Status</label>
-                                @Html.DropDownList("immigration_status", new List<SelectListItem>
-                                {
-                                    new SelectListItem {Text = "Citizen", Value = "Citizen"},
-                                    new SelectListItem {Text = "H1B", Value = "H1B"},
-                                    new SelectListItem {Text = "OPT-EAD", Value = "OPT-EAD"},
-                                    new SelectListItem {Text = "GC-EAD", Value = "GC-EAD"},
-                                    new SelectListItem {Text = "GC", Value = "GC"},
-                                    new SelectListItem {Text = "CPT", Value = "CPT"},
-                                    new SelectListItem {Text = "L2-EAD", Value = "L2-EAD"},
-                                    new SelectListItem {Text = "H4 EAD", Value = "H4 EAD"},
-                                    new SelectListItem {Text = "TN Visa – Canada", Value = "TN Visa – Canada"},
-
-
-                                }, "Select Immigration", new { @class = "form-control", @style = "width:230px; height:35px;" })
+                                @Html.DropDownListFor(m => m.immigration_status, new SelectList(Model.Objimmigration_status, "immigration_status_id", "immigration_status", Model.Objimmigration_status), "Select immigration status", new { @class = "form-control", @style = "height:35px;" })
+                                @Html.ValidationMessageFor(m => m.immigration_status, "", new { @style = "color:red" })
+                                @Html.HiddenFor(m => m.immigration_status)
                             </div>
                         </div>
                         <div class="col-lg-3 offset-lg-1">
                             <div class="form-group">
                                 <label>Employment Basis</label>
-                                @Html.DropDownList("employment_basis", new List<SelectListItem>
-                                {
-
-                                  new SelectListItem {Text = "Annual W2", Value = "Annual W2"},
-                                   new SelectListItem {Text = "Hourly W2", Value = "Hourly W2"},
-                                   new SelectListItem {Text = "Individual 1099", Value = "Individual 1099"},
-                                   new SelectListItem {Text = "C2C", Value = "C2C"},
-                                   new SelectListItem {Text = "C2H", Value = "C2H"},
-                                   new SelectListItem {Text = "Direct Hire", Value = "Direct Hire"},
-
-                                }, "Select Employment", new { @class = "form-control", @style = "width:230px; height:35px;" })
-                                @Html.ValidationMessage("employment_basis", "", new { @style = "color:red" })
+                                @Html.DropDownListFor(m => m.employment_basis, new SelectList(Model.ObjEmploymentBasisDetails, "employment_basis_id", "employment_basis", Model.Objimmigration_status), "Select Employment Basis", new { @class = "form-control", @style = "height:35px;" })
+                                @Html.ValidationMessageFor(m => m.employment_basis, "", new { @style = "color:red" })
+                                @Html.HiddenFor(m => m.employment_basis)
                             </div>
                         </div>
                     </div>
@@ -120,7 +100,7 @@
                                     new SelectListItem {Text = "NB", Value = "NB"},
                                     new SelectListItem {Text = "Ter", Value = "Ter"},
 
-                                }, "Select Billable", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                }, "Select Billable", new { @class = "form-control", @style = "width:230px; height:35px;" })
                                 @Html.ValidationMessage("billable", "", new { @style = "color:red" })
                             </div>
                         </div>
@@ -170,7 +150,7 @@
                                     new SelectListItem {Text = "No", Value = "No"},
 
 
-                                }, "Select Continuity", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                }, "Select Continuity", new { @class = "form-control", @style = "width:230px; height:35px;" })
                                 @Html.ValidationMessage("continuity_with_us", "", new { @style = "color:red" })
 
                             </div>
@@ -185,7 +165,7 @@
                                     new SelectListItem {Text = "No", Value = "No"},
 
 
-                                }, "Select Remote", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                                }, "Select Remote", new { @class = "form-control", @style = "width:230px; height:35px;" })
                                 @Html.ValidationMessage("Remote", "", new { @style = "color:red" })
                             </div>
                         </div>
@@ -202,7 +182,7 @@
                                    new SelectListItem {Text = "N", Value = "N"},
 
 
-                               }, "Select Expenses Applicable", new { @class = "form-control", @style = "width:200px; height:35px;" })
+                               }, "Select Expenses Applicable", new { @class = "form-control", @style = "width:230px; height:35px;" })
                                 @Html.ValidationMessage("expenses_applicable", "", new { @style = "color:red" })
                             </div>
                         </div>
@@ -213,29 +193,23 @@
                         <div class="col-lg-3 offset-lg-1">
                             <div class="form-group">
                                 <label>Expense Frequency</label>
-                                @Html.DropDownList("exp_weekly_monthly", new List<SelectListItem>
-                                      {
-                                           new SelectListItem {Text = "Bi-weekly", Value = "Bi-weekly"},
-                                             new SelectListItem {Text = "Monthly", Value = "Monthly"},
-
-                                      }, "Select Expense Frequency", new { @class = "form-control", @style = "width:200px; height:35px;" })
-                                @Html.ValidationMessage("exp_weekly_monthly", "", new { @style = "color:red" })
+                                @Html.DropDownListFor(m => m.exp_weekly_monthly, new SelectList(Model.Objexp_weekly_monthly, "Id", "Description", Model.payroll), "Select Expense Frequency", new { @class = "form-control", @style = "height:35px;" })
+                                @Html.ValidationMessageFor(m => m.exp_weekly_monthly, "", new { @style = "color:red" })
+                                @Html.HiddenFor(m => m.exp_weekly_monthly)
                             </div>
                         </div>
                         <div class="col-lg-3 offset-lg-1">
                             <div class="form-group">
                                 <label>Payroll Frequency</label>
-                                @Html.DropDownList("Payroll", new List<SelectListItem>
-                                     {
-                                          new SelectListItem {Text = "Bi-weekly", Value = "Bi-weekly"},
-                                            new SelectListItem {Text = "Monthly", Value = "Monthly"},
-                                            new SelectListItem {Text = "Bi weekly Net 30", Value = "Bi weekly Net 30"},
-                                     }, "Select Payroll", new { @class = "form-control", @style = "width:200px; height:35px;" })
-                                @Html.ValidationMessage("Payroll", "", new { @style = "color:red" })
+                          
+                                        @Html.DropDownListFor(m => m.payroll, new SelectList(Model.Objpayroll, "Id", "Description", Model.payroll), "Select Payroll ", new { @class = "form-control", @style = "height:35px;" })
+                                        @Html.ValidationMessageFor(m => m.payroll, "", new { @style = "color:red" })
+                                        @Html.HiddenFor(m => m.payroll)
+                                    </div>
+                                </div>
 
                             </div>
-                        </div>
-                    </div>
+                    
                     <div class="row">
                         @*<div class="col-lg-3 offset-lg-1">
                 <div class="form-group">
@@ -312,7 +286,7 @@
                             </div>
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
-                                    <label>Medical</label>
+                                    <label>Medical(Hourly Cost)</label>
                                     @Html.TextBoxFor(m => m.medical, new { @class = "form-control", OnBlur = "return Calculate_Cost()", @onkeypress = "return IsNumeric(event);", maxlength = 14 })
                                 </div>
                             </div>
@@ -326,7 +300,7 @@
                             </div>
                             <div class="col-lg-3 offset-lg-1">
                                 <div class="form-group">
-                                    <label>Other Expenses</label>
+                                    <label>Other Expenses(Hourly Cost)</label>
                                     @Html.TextBoxFor(m => m.other_expenses, new { @class = "form-control", OnBlur = "return Calculate_Cost()", maxlength = 50, onkeypress = "return validateFloatKeyPress(this,event);" })
                                 </div>
                             </div>
@@ -391,7 +365,7 @@
                     <div class="tile-footer">
                         <div class="row">
                             <div class="col-md-8 col-md-offset-3">
-                                <a class="btn btn-primary" href="/Roster/RosterDetails"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add New</a>
+                             @*   <a class="btn btn-primary"  href="/Roster/RosterDetails"><i class="fa fa-fw fa-lg fa-check-circle"></i>Add New</a>*@
                                 <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>Save</button>
                             </div>
                         </div>
@@ -494,13 +468,13 @@
                     EmployeeId: EmployeeId.val(),
                 }),
                 success: function (result) {
-
+                    ClearRosterDetails();
                     if (result != "") {
                         if (confirm('Do you want to copy Previous Roster Details of Employee?')) {
                             for (var x = 0; x < result.length; x++) {
-                                ClearRosterDetails();
-                                $('#immigration_status').val(result[x].immigration_status);
-                                $('#employment_basis').val(result[x].employment_basis);
+                               
+                                $('#immigration_status').val(result[x].immigration_status_id);
+                                $('#employment_basis').val(result[x].employment_basis_id);
                                 $('#billable').val(result[x].billable);
                                 $('#client').val(result[x].client);
                                 $('#client_manager_name').val(result[x].client_manager_name);
@@ -509,8 +483,8 @@
                                 $('#continuity_with_us').val(result[x].continuity_with_us);
                                 $('#Remote').val(result[x].Remote);
                                 $('#expenses_applicable').val(result[x].expenses_applicable);
-                                $('#exp_weekly_monthly').val(result[x].exp_weekly_monthly);
-                                $('#Payroll').val(result[x].Payroll);
+                                $('#exp_weekly_monthly').val(result[x].exp_weekly_monthly_id);
+                                $('#payroll').val(result[x].payroll_id);
                                 $('#continuity_with_us').val(result[x].continuity_with_us);
                                 $('#Remote').val(result[x].Remote);
                                 $('#business_name').val(result[x].business_name);
@@ -529,7 +503,7 @@
                                 $('#total_sow_value').val(result[x].total_sow_value);
                                 $('#sick_leave_cost').val(result[x].sick_leave_cost);
                                 $('#vendor').val(result[x].vendor);
-                                $('#po_effective_date').val(result[x].po_effective_date);
+                               
                             }
                         } else {
                             ClearRosterDetails();

@@ -79,6 +79,14 @@
     <Property Name="createdDate" Type="datetime" />
     <Property Name="modifyDate" Type="datetime" />
   </EntityType>
+  <EntityType Name="employment_basis">
+    <Key>
+      <PropertyRef Name="employment_basis_id" />
+    </Key>
+    <Property Name="employment_basis_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employment_basis_desc" Type="varchar" MaxLength="100" />
+    <Property Name="is_active" Type="bit" />
+  </EntityType>
   <EntityType Name="excel_export_header">
     <Key>
       <PropertyRef Name="excel_export_id" />
@@ -92,14 +100,45 @@
     <Property Name="is_salesvisible" Type="bit" />
     <Property Name="is_invoicevisible" Type="bit" />
   </EntityType>
+  <EntityType Name="ExceptionLogging">
+    <Key>
+      <PropertyRef Name="ExceptionId" />
+    </Key>
+    <Property Name="ExceptionId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ExceptionMessage" Type="varchar(max)" />
+    <Property Name="ControllerName" Type="varchar" MaxLength="100" />
+    <Property Name="ActionName" Type="varchar" MaxLength="100" />
+    <Property Name="ExceptionStackTrace" Type="varchar(max)" />
+    <Property Name="LogTime" Type="datetime" />
+    <Property Name="UserIP" Type="varchar(max)" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="immigration_status">
+    <Key>
+      <PropertyRef Name="immigration_status_id" />
+    </Key>
+    <Property Name="immigration_status_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="immigration_status_desc" Type="varchar" MaxLength="100" />
+    <Property Name="is_active" Type="bit" />
+  </EntityType>
+  <EntityType Name="report_list">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="report_name" Type="varchar" MaxLength="100" />
+    <Property Name="description" Type="varchar" MaxLength="200" />
+    <Property Name="is_active" Type="bit" Nullable="false" />
+    <Property Name="is_summary" Type="bit" />
+  </EntityType>
   <EntityType Name="roster">
     <Key>
       <PropertyRef Name="roster_id" />
     </Key>
     <Property Name="roster_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="employee_id" Type="int" Nullable="false" />
-    <Property Name="immigration_status" Type="varchar" MaxLength="20" />
-    <Property Name="employment_basis" Type="varchar" MaxLength="20" />
+    <Property Name="immigration_status_id" Type="int" />
+    <Property Name="employment_basis_id" Type="int" />
     <Property Name="contract_start_date" Type="datetime" />
     <Property Name="contract_end_date" Type="datetime" />
     <Property Name="billable" Type="varchar" MaxLength="20" />
@@ -110,8 +149,8 @@
     <Property Name="phone_no" Type="varchar" MaxLength="20" />
     <Property Name="empolyee_email_id" Type="varchar" MaxLength="50" />
     <Property Name="client_email_id" Type="varchar" MaxLength="50" />
-    <Property Name="expenses_applicable" Type="varchar" MaxLength="20" />
-    <Property Name="payroll" Type="varchar" MaxLength="20" />
+    <Property Name="expenses_applicable" Type="varchar" MaxLength="1" />
+    <Property Name="payroll_id" Type="int" />
     <Property Name="remote" Type="varchar" MaxLength="20" />
     <Property Name="business_name" Type="varchar" MaxLength="100" />
     <Property Name="business_contact_name" Type="varchar" MaxLength="20" />
@@ -127,16 +166,18 @@
     <Property Name="po" Type="varchar" MaxLength="20" />
     <Property Name="payroll_hours" Type="float" />
     <Property Name="qb_hours" Type="float" />
-    <Property Name="created_by_user_id" Type="int" />
+    <Property Name="created_by_user_id" Type="varchar" MaxLength="256" />
     <Property Name="created_datetime" Type="datetime" />
-    <Property Name="last_updated_by_user_id" Type="int" />
+    <Property Name="last_updated_by_user_id" Type="varchar" MaxLength="256" />
     <Property Name="last_updated_datetime" Type="datetime" />
-    <Property Name="exp_weekly_monthly" Type="varchar" MaxLength="50" />
+    <Property Name="exp_weekly_monthly_id" Type="int" />
     <Property Name="total_cost" Type="float" />
     <Property Name="overhead_per" Type="float" />
     <Property Name="vendor" Type="bit" />
     <Property Name="sick_leave_cost" Type="float" />
     <Property Name="po_effective_date" Type="datetime" />
+    <Property Name="add_comment" Type="varchar(max)" />
+    <Property Name="Status" Type="varchar" MaxLength="5" />
   </EntityType>
   <EntityType Name="user_roles">
     <Key>
@@ -146,7 +187,21 @@
     <Property Name="user_role_description" Type="varchar" MaxLength="20" />
     <Property Name="is_active" Type="bit" />
   </EntityType>
+  <Function Name="sp_clientList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_createcontractendreport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="fromdate" Type="datetime" Mode="In" />
+    <Parameter Name="todate" Type="datetime" Mode="In" />
+  </Function>
+  <Function Name="sp_createsummaryreport" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="report_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_EmployeeDetailbyCustomerList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="billable" Type="varchar" Mode="In" />
+    <Parameter Name="client" Type="varchar" Mode="In" />
+  </Function>
   <Function Name="SP_EmployeeList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_EmploymentBasisDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_ExpenseFrequencyDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="SP_GetAllRosterDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="SP_GetEmployeeRosterDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="employee_Id" Type="int" Mode="In" />
@@ -154,11 +209,23 @@
   <Function Name="SP_GetLoginDtsByRegisterUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="ID" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="SP_ImmigrationStatusDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="SP_LoginUserDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="LoginEmailID" Type="varchar" Mode="In" />
   </Function>
+  <Function Name="SP_PayrollExpenseDetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_ReportList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="SP_RoleList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <Function Name="SP_UserList" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="SP_UserMailTrigger" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="UserID" Type="varchar" Mode="In" />
+    <Parameter Name="GenratePassword" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="sp_vendorlist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_vendorwisedetails" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="businessname" Type="varchar" Mode="In" />
+    <Parameter Name="is_vendor" Type="bit" Mode="In" />
+  </Function>
   <EntityContainer Name="RosterModelStoreContainer">
     <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
@@ -167,7 +234,11 @@
     <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="employee" EntityType="Self.employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="employment_basis" EntityType="Self.employment_basis" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="excel_export_header" EntityType="Self.excel_export_header" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExceptionLogging" EntityType="Self.ExceptionLogging" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="immigration_status" EntityType="Self.immigration_status" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="report_list" EntityType="Self.report_list" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="roster" EntityType="Self.roster" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="user_roles" EntityType="Self.user_roles" Schema="dbo" store:Type="Tables" />
   </EntityContainer>

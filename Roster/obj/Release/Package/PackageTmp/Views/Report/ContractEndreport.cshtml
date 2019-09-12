@@ -1,0 +1,191 @@
+﻿@model Roster.Models.ReportViewModels
+@{
+    ViewBag.Title = "Contract End Report";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+
+<div class="app-content" style="margin-top:70px;">
+    <div class="app-title">
+        <div>
+            <h1>Contract End Report</h1>
+        </div>
+    </div>
+    @using (Html.BeginForm("ContractEndreport", "Report", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+
+            <div class="col-md-12">
+                <div style="height:110px;" class="tile">
+
+                    <div class="tile-body">
+
+                        <div class="row" style="padding-bottom:100px;">
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>From Date </label>
+                                    @Html.TextBoxFor(m => m.contract_start_date, "{0:MM/dd/yyyy}", new { @class = "form-control", @style = "height:35px;", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.contract_start_date, "", new { @style = "color:red" })
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1">
+                                <div class="form-group">
+                                    <label>To Date </label>
+                                    @Html.TextBoxFor(m => m.contract_end_date, "{0:MM/dd/yyyy}", new { @class = "form-control", @style = "height:35px;", autocomplete = "off" })
+                                    @Html.ValidationMessageFor(m => m.contract_end_date, "", new { @style = "color:red" })
+
+                                </div>
+                            </div>
+                            <div class="col-lg-3 offset-lg-1" style="margin-top:25px;">
+                                <div class="form-group">
+                                    <button class="btn btn-primary" type="submit"><i class="fa fa-fw fa-lg fa-check-circle"></i>View</button>
+                                    <p style="color:red"> @Html.Raw(TempData["msg"])</p>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+        @if (Model.ObjContractEnd.Count > 0)
+        {
+            <div class="row">
+                <div class="col-md-12">
+
+                    <div class="tile">
+                        @using (Html.BeginForm("ExportContratDetails", "Report", FormMethod.Post))
+                        {
+                            <div>
+                                <button class="btn btn-success" type="submit" id="btnExport"><i class="fa fa-fw fa-lg fa-check-circle"></i>Export To Excel</button>
+                            </div>
+                        }
+                     
+                        <br />
+                        <div class="tile-body">
+
+
+                            <div class="form-group row table-responsive">
+                                <div class="col-md-12">
+                                    <div id="new-search-area"></div>
+                                </div>
+
+                                <table class="table table-hover table-bordered " id="sampleTable">
+                                    <thead>
+                                        <tr>
+
+                                            <th>Employee Name</th>
+                                            <th>Client Name</th>
+                                            <th>Business Name</th>
+                                            <th>Client Manager Name</th>
+                                            <th>Contract Start Date</th>
+                                            <th>Contract End Date</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ObjContractEnd)
+                                        {
+                                            <tr>
+
+                                                <td>@item.employeename</td>
+                                                <td>@item.client</td>
+                                                <td>@item.business_name</td>
+                                                <td>@item.client_manager_name</td>
+                                                <td>@item.contract_start_date</td>
+                                                <td>@item.contract_end_date</td>
+
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    
+
+</div>
+@section js{
+    <style>
+
+        .inputdisabled {
+            background-color: #e9ecef;
+            opacity: 1
+        }
+
+        #new-search-area {
+            width: 100%;
+            clear: both;
+            /*padding-top: 20px;
+            padding-bottom: 20px;*/
+        }
+
+            #new-search-area input {
+                display: block;
+                width: 700px;
+                padding: 0.375rem 0.75rem;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                color: #495057;
+                background-color: #FFF;
+                background-clip: padding-box;
+                border: 2px solid #ced4da;
+                border-radius: 4px;
+                -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+                -o-transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
+            }
+    </style>
+    <!-- Data table plugin-->
+    <script type="text/javascript" src="~/Template/js/plugins/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="~/Template/js/plugins/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $('#sampleTable').DataTable(
+            {
+                //"bInfo": false,
+                //"bLengthChange": false,
+                //initComplete : function() {
+                //    $("#sampleTable_filter").detach().appendTo('#new-search-area');
+                //}
+            });</script>
+    <script src="~/Scripts/CustomFunction.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js" type="text/javascript"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"
+            type="text/javascript"></script>
+    <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css"
+          rel="Stylesheet" type="text/css" />
+    <script type="text/javascript">
+
+        $(function () {
+            $("#contract_start_date").datepicker({
+                numberOfMonths: 1,
+                onSelect: function (selected) {
+                    var dt = new Date(selected);
+                    dt.setDate(dt.getDate() + 1);
+                    $("#contract_end_date").datepicker("option", "minDate", dt);
+                }
+            });
+
+            $("#contract_end_date").datepicker({
+                numberOfMonths: 1,
+                onSelect: function (selected) {
+                    var dt = new Date(selected);
+                    dt.setDate(dt.getDate() - 1);
+                    $("#contract_start_date").datepicker("option", "maxDate", dt);
+                }
+            });
+
+
+        });
+    </script>
+
+   }
